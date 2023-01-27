@@ -1,5 +1,5 @@
-name: template-tutorial
-title: Template Tutorial
+name: ansible-tutorial
+title: Ansible Tutorial
 version: master
 nav:
   - modules/ROOT/nav.adoc

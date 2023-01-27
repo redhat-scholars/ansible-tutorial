@@ -1,20 +1,21 @@
-= Welcome to Template Tutorial
+= Welcome to Ansible Tutorial
 :page-layout: home
 :!sectids:
 
 [.text-center.strong]
-== Publish Services to Kubernetes
+== Getting started in Ansible
 
-A Kubernetes tutorial to show how you can deploy a Java service to a Kubernetes cluster as it was a child game.
+In this Ansible tutorial, you'll learn the basics of Ansible to start working with it.
 
 [.tiles.browse]
 == Browse modules
 
 [.tile]
 .xref:01-setup.adoc[Get Started]
-* xref:01-setup.adoc#minikube[Minikube]
+* xref:01-setup.adoc#prerequisite[Prerequisites]
 
 [.tile]
-.xref:02-deploy.adoc[Deploying]
-* xref:02-deploy.adoc#package[Package the Application]
-* xref:02-deploy.adoc#deploy[Deploy the Application]
+.xref:02-getting-started.adoc[First Steps]
+* xref:02-getting-started.adoc#inventory[Inventory]
+* xref:02-getting-started.adoc#runningansible[Running Ansible]
+* xref:02-getting-started.adoc#playbook[Playbooks]
