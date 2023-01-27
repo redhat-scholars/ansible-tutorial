@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Getting Started :: Ansible Tutorial</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/02-getting-started.html">
+    <link rel="prev" href="01-setup.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-scholars.github.io/ansible-tutorial">Ansible Tutorial</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ansible-tutorial" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="01-setup.html">1. Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#ansible">Setup Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#downloadtutorial">Get Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#preparingkeys">Preparing SSH keys</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#bootingservers">Booting Servers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-getting-started.html">2. Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#inventory">Defining an Inventory</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#runningansible">Running Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#escalation">Privilege Escalation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#playbook">Playbooks</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Ansible Tutorial</a></li>
+    <li><a href="02-getting-started.html">2. Getting Started</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/ansible-tutorial/edit/master/documentation/modules/ROOT/pages/02-getting-started.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Getting Started</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>With machines up and running and Ansible installed, we can start managing the infrastructure.</p>
+</div>
+<div class="paragraph">
+<p>The first thing is create an <code>inventory</code> file.
+Ansible automates tasks on managed nodes or “hosts” in your infrastructure, using a list or group of lists of hosts. This is known as inventory file.
+Although this inventory file now is static, Ansible also supports getting hosts from dynamic resources like Cobbler or OpenStack.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="inventory"><a class="anchor" href="#inventory"></a>Inventory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The inventory file can be created in <em>YAML</em> or <em>INI</em> format.
+In this example_INI_ format is used as it&#8217;s easy to understand and error-prone to white spaces.</p>
+</div>
+<div class="paragraph">
+<p>So, let&#8217;s create the inventory file for managing both servers grouped in two categories (<code>staging</code> and <code>production</code>):</p>
+</div>
+<div class="paragraph">
+<p>Create a new file named <code>inventory</code> with the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">inventory</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">[staging]
+staging ansible_user=root ansible_host=127.0.0.1 ansible_port=2223 ansible_ssh_private_key_file=~/.ssh/id_rsa_ansible
+
+[production]
+production ansible_user=root ansible_host=127.0.0.1 ansible_port=2224 ansible_ssh_private_key_file=~/.ssh/id_rsa_ansible</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this inventory file, we set two two groups of servers, one for the staging and another for the production environments.</p>
+</div>
+<div class="paragraph">
+<p>For each entry, we set the user to login, the hostname/IP, the SSH port, and
+the private key to use.</p>
+</div>
+<div class="paragraph">
+<p>Run the following command to list the inventory:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-inventory -i inventory --list</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+{
+    "_meta": {
+        "hostvars": {
+            "production": {
+                "ansible_host": "127.0.0.1",
+                "ansible_port": 2224,
+                "ansible_ssh_private_key_file": "~/.ssh/id_rsa_ansible",
+                "ansible_user": "root"
+            },
+            "staging": {
+                "ansible_host": "127.0.0.1",
+                "ansible_port": 2223,
+                "ansible_ssh_private_key_file": "~/.ssh/id_rsa_ansible",
+                "ansible_user": "root"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "production",
+            "staging",
+            "ungrouped"
+        ]
+    },
+    "production": {
+        "hosts": [
+            "production"
+        ]
+    },
+    "staging": {
+        "hosts": [
+            "staging"
+        ]
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="runningansible"><a class="anchor" href="#runningansible"></a>Running Ansible</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One of the most important parts of Ansible is <strong>Modules</strong> which are portions of code executed from Ansible, usually on the remote target node (using the SSH connection), and collects return values.</p>
+</div>
+<div class="paragraph">
+<p>An example of module is the <strong>ping</strong> module.
+This module contains the code to execute a ping aganist servers.</p>
+</div>
+<div class="paragraph">
+<p>In the same way, there is a module to copy files from a local directory to the remote server.</p>
+</div>
+<div class="paragraph">
+<p>Of course, you could implement them running commands/shell scripts, but Ansible provides these modules for you.</p>
+</div>
+<div class="sect2">
+<h3 id="modulecli"><a class="anchor" href="#modulecli"></a>Ping module</h3>
+<div class="paragraph">
+<p>Let&#8217;s use Ansible to ping all servers defined in the inventory.
+Run the following command in the same directory where you created the <code>inventory</code> file to ping <strong>staging</strong> servers.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible staging -i inventory -m ping <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>First argument is the group of servers to execute the command</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>With <code>-i</code> you set the inventory file location</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>With <code>-m</code> enables the ping module</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+staging | SUCCESS =&gt; {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Same can be done with <strong>production</strong> servers:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible production -i inventory -m ping</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+production | SUCCESS =&gt; {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use also directly the IP/hostname of the server, or the special keyword <code>all</code> to execute it to all servers defined in the inventory file.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible all -i inventory -m ping</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+staging | SUCCESS =&gt; {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+production | SUCCESS =&gt; {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modulecommand"><a class="anchor" href="#modulecommand"></a>Command module</h3>
+<div class="paragraph">
+<p>Sometimes we only want to execute a command against servers, so not relay on any module but sending the command directly through SSH connection.
+For these cases, there is the command module.
+Let&#8217;s run the <code>uptime</code> command inside all servers defined in the inventory.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible all -i inventory -a "uptime" <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>With <code>-a</code> option you run directly the command to servers</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+production | FAILED | rc=2 &gt;&gt;
+[Errno 2] No such file or directory: b'uptime'
+staging | FAILED | rc=2 &gt;&gt;
+[Errno 2] No such file or directory: b'uptime'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>uptime</code> command is not present in the servers, so Ansible gets back the error message.
+To fix this problem, let&#8217;s install <code>uptime</code> program to all servers.
+Since servers are a Fedora distribution, we use the <code>dnf</code> module to install the package.</p>
+</div>
+<div class="paragraph">
+<p>INFO: <code>uptime</code> program is inside the <code>procps-ng</code> package.</p>
+</div>
+<div class="paragraph">
+<p>Run the following command to run <code>dnf</code> to all servers with <code>name</code> argument set to <code>procps-ng</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible all -i inventory -m dnf -a "name=procps-ng"</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+production | CHANGED =&gt; {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": true,
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Installed: procps-ng-3.3.17-6.fc37.2.x86_64"
+    ]
+}
+staging | CHANGED =&gt; {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": true,
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "Installed: procps-ng-3.3.17-6.fc37.2.x86_64"
+    ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run again the <code>uptime</code> command to verify it&#8217;s installed.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible all -i inventory -a "uptime"</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+production | CHANGED | rc=0 &gt;&gt;
+ 13:44:23 up  2:39,  0 users,  load average: 0.12, 0.09, 0.04
+staging | CHANGED | rc=0 &gt;&gt;
+ 13:44:23 up  2:39,  0 users,  load average: 0.12, 0.09, 0.04</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="escalation"><a class="anchor" href="#escalation"></a>Privilege Escalation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For the sake of simplicity, we are login into the machines as the root user.
+This let&#8217;s you access to protected resources.
+To validate <code>dnf</code> log, we can run:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible staging -i inventory -a "cat /var/log/dnf.log"</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+staging | CHANGED | rc=0 &gt;&gt;
+2023-01-16T17:32:49+0000 INFO --- logging initialized ---
+2023-01-16T17:32:49+0000 DDEBUG timer: config: 7 ms
+2023-01-16T17:32:49+0000 DEBUG YUM version: 4.14.0
+2023-01-16T17:32:49+0000 DDEBUG Command: yum -y update
+2023-01-16T17:32:49+0000 DDEBUG Installroot: /
+2023-01-16T17:32:49+0000 DDEBUG Releasever: 37</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case works because we&#8217;re already root, but in case of logged with a non-root user, we might need some privilage escalation to execute the command.</p>
+</div>
+<div class="paragraph">
+<p>Ansible offers several arguments to do that escalation, but the most used are <code>--become</code> and <code>-K</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>--become</code> argument is used to run the operations with a privilege escalation. By default it&#8217;s <code>sudo</code>, but it could be <code>su</code>, <code>pbrun</code>, &#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>The <code>-K</code> argument is used to ask for privilege escalation password.</p>
+</div>
+<div class="paragraph">
+<p>So in case of not being root user, the previous command should be:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible staging --become -K -i inventory -a "cat /var/log/dnf.log"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="playbook"><a class="anchor" href="#playbook"></a>Playbooks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>So far, we&#8217;ve seen running commands against a list of servers using Ansible, and this might be good when the command is simple.
+But what&#8217;s happen when we need to run a list of operations against the servers, for example installing the Java Virtual Machine, copying our application files into the servers, and start it?</p>
+</div>
+<div class="paragraph">
+<p>One option could be running <code>ansible</code> command several times in the terminal manually.
+But Ansible offers a way to define all these instructions/steps/tasks in a single file and apply them to all inventory elements.
+This file in Ansible is named a <strong>playbook</strong>.</p>
+</div>
+<div class="paragraph">
+<p>A playbook is a YAML file where we configure all these execution steps.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see a full example of how to prepare, install and run a Java application into each of the servers defined in the inventory.</p>
+</div>
+<div class="sect2">
+<h3 id="firstplaybook"><a class="anchor" href="#firstplaybook"></a>Prepare Environments</h3>
+<div class="paragraph">
+<p>The first part of our playbook is composed by the installation of the Java Virtual Machine, and the creation of the directory where the application will be copied.</p>
+</div>
+<div class="paragraph">
+<p>To do that <code>dnf</code> and <code>file</code> modules are used.
+Create a new file named <code>playbook.yaml</code> in the same directory as inventory with the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- hosts: all <i class="conum" data-value="1"></i><b>(1)</b>
+  become: true <i class="conum" data-value="2"></i><b>(2)</b>
+  tasks:
+    - name: Install Packages
+      dnf: name={{ item }} <i class="conum" data-value="3"></i><b>(3)</b>
+      loop: [ 'java-17-openjdk-devel'] <i class="conum" data-value="4"></i><b>(4)</b>
+      tags: [ 'setup' ]
+    - name: Create a directory if it does not exist
+      file: <i class="conum" data-value="5"></i><b>(5)</b>
+        path: /var/hello <i class="conum" data-value="6"></i><b>(6)</b>
+        state: directory
+        mode: '0755'
+      tags: ['setup']</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Apply all tasks to all machines defined in the inventory file</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Execute commands with <code>sudo</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Run <code>dnf</code> against the value of variable item</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Loops through the array of elements, setting them in the <code>item</code> var and executing <code>dnf</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Use <code>file</code> module to create a directory</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Creates <code>/var/hello</code> directory in all machines</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To apply a playbook, run the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook -i inventory playbook.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [production]
+ok: [staging]
+
+TASK [Install Packages] ********************************************************
+changed: [production] =&gt; (item=java-17-openjdk-devel)
+changed: [staging] =&gt; (item=java-17-openjdk-devel)
+
+TASK [Create a directory if it does not exist] *********************************
+changed: [production]
+changed: [staging]
+
+PLAY RECAP *********************************************************************
+production                 : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+staging                    : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installapp"><a class="anchor" href="#installapp"></a>Installing the Application</h3>
+<div class="paragraph">
+<p>The following phase is copying the application to <code>/var/hello</code> directory, and configure Supervisord to control the application process.</p>
+</div>
+<div class="paragraph">
+<p>Before modifying the playbook content, download [link1] and [link2] and copy them in the same directory as playbook.</p>
+</div>
+<div class="paragraph">
+<p>Append to the previous playbook file, the following tasks:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: Copy file with owner and permissions
+      copy: <i class="conum" data-value="1"></i><b>(1)</b>
+        src: hello-world-1.0.0-SNAPSHOT-runner.jar
+        dest: /var/hello/hello-world-1.0.0-SNAPSHOT-runner.jar
+        owner: root
+        group: root
+        mode: '0755'
+      tags: ['app']
+    - name: Copy supervisor conf file for the app
+      copy: <i class="conum" data-value="2"></i><b>(2)</b>
+        src: hello.conf
+        dest: /etc/supervisord.d/hello.conf
+        owner: root
+        group: root
+        mode: '0644'
+      tags: ['app']
+    - name: Reread supervisord
+      command: /usr/bin/supervisorctl reread <i class="conum" data-value="3"></i><b>(3)</b>
+      tags: ['app']
+    - name: Update supervisord
+      command: /usr/bin/supervisorctl update
+      tags: ['app'] <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Copy module copies file from local directory to remote machine</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Add supervisord configuration file</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Restart supervisord daemon to load the configuration and start the application</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Tags section is used to categorize tasks</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The full playbook file should look like:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- hosts: all
+  become: true
+  tasks:
+    - name: Install Packages
+      dnf: name={{ item }}
+      loop: [ 'java-17-openjdk-devel']
+      tags: [ 'setup' ]
+    - name: Create a directory if it does not exist
+      file:
+        path: /var/hello
+        state: directory
+        mode: '0755'
+      tags: ['setup']
+    - name: Copy file with owner and permissions
+      copy:
+        src: hello-world-1.0.0-SNAPSHOT-runner.jar
+        dest: /var/hello/hello-world-1.0.0-SNAPSHOT-runner.jar
+        owner: root
+        group: root
+        mode: '0755'
+      tags: ['app']
+    - name: Copy supervisor conf file for the app
+      copy:
+        src: hello.conf
+        dest: /etc/supervisord.d/hello.conf
+        owner: root
+        group: root
+        mode: '0644'
+      tags: ['app']
+    - name: Reread supervisord
+      command: /usr/bin/supervisorctl reread
+      tags: ['app']
+    - name: Update supervisord
+      command: /usr/bin/supervisorctl update
+      tags: ['app']</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To apply a playbook, run the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook -i inventory playbook.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [staging]
+ok: [production]
+
+TASK [Install Packages] ********************************************************
+ok: [staging] =&gt; (item=java-17-openjdk-devel)
+ok: [production] =&gt; (item=java-17-openjdk-devel)
+
+TASK [Create a directory if it does not exist] *********************************
+ok: [staging]
+ok: [production]
+
+TASK [Copy file with owner and permissions] ************************************
+changed: [staging]
+changed: [production]
+
+TASK [Copy supervisor conf file for the app] ***********************************
+changed: [staging]
+changed: [production]
+
+TASK [Reread supervisord] ******************************************************
+changed: [production]
+changed: [staging]
+
+TASK [Update supervisord] ******************************************************
+changed: [staging]
+changed: [production]
+
+PLAY RECAP *********************************************************************
+production                 : ok=7    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+staging                    : ok=7    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, the steps executed in the previous section are not executed anymore, and the application is installed and running.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s query both applications (staging and production) to validate that application is working correctly:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl localhost:8080/hello <i class="conum" data-value="1"></i><b>(1)</b>
+curl localhost:8081/hello <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Staging</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Production</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">Hello from RESTEasy Reactive
+Hello from RESTEasy Reactive</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Inspect the logs in the <em>docker-machine</em> terminal to validate that the process has been spawned by supervisord.</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">preprod_1  | 2023-01-27 15:26:04,952 INFO spawned: 'hello' with pid 1464
+prod_1     | 2023-01-27 15:26:04,969 INFO spawned: 'hello' with pid 1463
+preprod_1  | 2023-01-27 15:26:05,955 INFO success: hello entered RUNNING state, process has stayed up for &gt; than 1 seconds (startsecs)
+prod_1     | 2023-01-27 15:26:05,972 INFO success: hello entered RUNNING state, process has stayed up for &gt; than 1 seconds (startsecs)
+prod_1     | 2023-01-27 15:27:05,360 INFO reaped unknown pid 761 (exit status 255)
+preprod_1  | 2023-01-27 15:27:05,469 INFO reaped unknown pid 762 (exit status 255)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="validating"><a class="anchor" href="#validating"></a>Automatic Validation</h3>
+<div class="paragraph">
+<p>We validated manually the correctness of the deployment, but Ansible also supports this use case.</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: Check status 200 and fail if incorrect page contents
+      uri: <i class="conum" data-value="1"></i><b>(1)</b>
+        url: <a href="http://localhost:8080/hello" class="bare">http://localhost:8080/hello</a>
+        return_content: yes
+      register: response <i class="conum" data-value="2"></i><b>(2)</b>
+      tags: ['test']
+    - name: Print result
+      debug:
+        var: response.content <i class="conum" data-value="3"></i><b>(3)</b>
+      tags: ['test']</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use <code>uri</code> module to query service</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Record return content into <code>response</code> variable</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Use <code>debug</code> module to print the content of <code>response</code> variable (output)</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The full playbook file should look like:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- hosts: all
+  become: true
+  tasks:
+    - name: Install Packages
+      dnf: name={{ item }}
+      loop: [ 'java-17-openjdk-devel']
+      tags: [ 'setup' ]
+    - name: Create a directory if it does not exist
+      file:
+        path: /var/hello
+        state: directory
+        mode: '0755'
+      tags: ['setup']
+    - name: Copy file with owner and permissions
+      copy:
+        src: hello-world-1.0.0-SNAPSHOT-runner.jar
+        dest: /var/hello/hello-world-1.0.0-SNAPSHOT-runner.jar
+        owner: root
+        group: root
+        mode: '0755'
+      tags: ['app']
+    - name: Copy supervisor conf file for the app
+      copy:
+        src: hello.conf
+        dest: /etc/supervisord.d/hello.conf
+        owner: root
+        group: root
+        mode: '0644'
+      tags: ['app']
+    - name: Reread supervisord
+      command: /usr/bin/supervisorctl reread
+      tags: ['app']
+    - name: Update supervisord
+      command: /usr/bin/supervisorctl update
+      tags: ['app']
+    - name: Check status 200 and fail if incorrect page contents
+      uri:
+        url: <a href="http://localhost:8080/hello" class="bare">http://localhost:8080/hello</a>
+        return_content: yes
+      register: response
+      tags: ['test']
+    - name: Print result
+      debug:
+        var: response.content
+      tags: ['test']</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can run all the Ansible playbook or restrict to only run the <code>test</code> tasks:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ansible-playbook -i inventory playbook.yaml --tags=test</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [production]
+ok: [staging]
+
+TASK [Check status 200 and fail if incorrect page contents] ********************
+ok: [production]
+ok: [staging]
+
+TASK [Print result] ************************************************************
+ok: [staging] =&gt; {
+    "response.content": "Hello from RESTEasy Reactive"
+}
+ok: [production] =&gt; {
+    "response.content": "Hello from RESTEasy Reactive"
+}
+
+PLAY RECAP *********************************************************************
+production                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+staging                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="01-setup.html">1. Setup</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
