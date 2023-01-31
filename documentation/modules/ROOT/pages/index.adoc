@@ -23,4 +23,4 @@ In this Ansible tutorial, you'll learn the basics of Ansible to start working wi
 [.tile]
 .xref:03-advanced.adoc[Templates]
 * xref:03-advanced.adoc#createtemplates[Create Templates]
-* xref:03-advanced.adoc#ansiblevault[Create Templates]
+* xref:03-advanced.adoc#ansiblevault[Securing Files]
