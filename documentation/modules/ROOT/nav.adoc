@@ -6,7 +6,12 @@
 ** xref:01-setup.adoc#bootingservers[Booting Servers]
 
 * xref:02-getting-started.adoc[2. Getting Started]
+** xref:02-getting-started.adoc#ide[Editor]
 ** xref:02-getting-started.adoc#inventory[Defining an Inventory]
 ** xref:02-getting-started.adoc#runningansible[Running Ansible]
 ** xref:02-getting-started.adoc#escalation[Privilege Escalation]
 ** xref:02-getting-started.adoc#playbook[Playbooks]
+
+* xref:03-advanced.adoc[3. Templates]
+** xref:03-advanced.adoc#createtemplates[Create Templates]
+** xref:03-advanced.adoc#ansiblevault[Create Templates]

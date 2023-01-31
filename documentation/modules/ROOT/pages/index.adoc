@@ -19,3 +19,8 @@ In this Ansible tutorial, you'll learn the basics of Ansible to start working wi
 * xref:02-getting-started.adoc#inventory[Inventory]
 * xref:02-getting-started.adoc#runningansible[Running Ansible]
 * xref:02-getting-started.adoc#playbook[Playbooks]
+
+[.tile]
+.xref:03-advanced.adoc[Templates]
+* xref:03-advanced.adoc#createtemplates[Create Templates]
+* xref:03-advanced.adoc#ansiblevault[Create Templates]

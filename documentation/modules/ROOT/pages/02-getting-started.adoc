@@ -6,6 +6,13 @@ The first thing is create an `inventory` file.
 Ansible automates tasks on managed nodes or “hosts” in your infrastructure, using a list or group of lists of hosts. This is known as inventory file.
 Although this inventory file now is static, Ansible also supports getting hosts from dynamic resources like Cobbler or OpenStack.
 
+[#ide]
+== IDE
+
+You can use any editor to create Ansible files, but we'd recommend you using Visual Studio Code with Ansible extension:
+
+image:ansibleide.png[]
+
 [#inventory]
 == Inventory
 
@@ -390,7 +397,7 @@ staging                    : ok=3    changed=2    unreachable=0    failed=0    s
 
 The following phase is copying the application to `/var/hello` directory, and configure Supervisord to control the application process.
 
-Before modifying the playbook content, download [link1] and [link2] and copy them in the same directory as playbook.
+Before modifying the playbook content, download https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello-world-1.0.0-SNAPSHOT-runner.jar[Application] and https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello.conf[Supervisord Configuration] and copy them in the same directory as playbook.
 
 Append to the previous playbook file, the following tasks:
 
