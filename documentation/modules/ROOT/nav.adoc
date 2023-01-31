@@ -14,4 +14,4 @@
 
 * xref:03-advanced.adoc[3. Templates]
 ** xref:03-advanced.adoc#createtemplates[Create Templates]
-** xref:03-advanced.adoc#ansiblevault[Create Templates]
+** xref:03-advanced.adoc#ansiblevault[Securing Files]
