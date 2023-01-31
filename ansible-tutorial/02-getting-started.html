@@ -6,6 +6,7 @@
     <title>Getting Started :: Ansible Tutorial</title>
     <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/02-getting-started.html">
     <link rel="prev" href="01-setup.html">
+    <link rel="next" href="03-advanced.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -76,6 +77,9 @@
     <a class="nav-link" href="02-getting-started.html">2. Getting Started</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#ide">Editor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#inventory">Defining an Inventory</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -86,6 +90,18 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#playbook">Playbooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-advanced.html">3. Templates</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-advanced.html#createtemplates">Create Templates</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-advanced.html#ansiblevault">Create Templates</a>
   </li>
 </ul>
   </li>
@@ -121,6 +137,17 @@
 <p>The first thing is create an <code>inventory</code> file.
 Ansible automates tasks on managed nodes or “hosts” in your infrastructure, using a list or group of lists of hosts. This is known as inventory file.
 Although this inventory file now is static, Ansible also supports getting hosts from dynamic resources like Cobbler or OpenStack.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ide"><a class="anchor" href="#ide"></a>IDE</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can use any editor to create Ansible files, but we&#8217;d recommend you using Visual Studio Code with Ansible extension:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ansibleide.png" alt="ansibleide"></span></p>
 </div>
 </div>
 </div>
@@ -567,7 +594,7 @@ staging                    : ok=3    changed=2    unreachable=0    failed=0    s
 <p>The following phase is copying the application to <code>/var/hello</code> directory, and configure Supervisord to control the application process.</p>
 </div>
 <div class="paragraph">
-<p>Before modifying the playbook content, download [link1] and [link2] and copy them in the same directory as playbook.</p>
+<p>Before modifying the playbook content, download <a href="https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello-world-1.0.0-SNAPSHOT-runner.jar">Application</a> and <a href="https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello.conf">Supervisord Configuration</a> and copy them in the same directory as playbook.</p>
 </div>
 <div class="paragraph">
 <p>Append to the previous playbook file, the following tasks:</p>
@@ -887,6 +914,7 @@ staging                    : ok=3    changed=0    unreachable=0    failed=0    s
 </div>
 <nav class="pagination">
   <span class="prev"><a href="01-setup.html">1. Setup</a></span>
+  <span class="next"><a href="03-advanced.html">3. Templates</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

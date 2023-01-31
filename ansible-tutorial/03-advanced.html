@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ansible Templates :: Ansible Tutorial</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/03-advanced.html">
+    <link rel="prev" href="02-getting-started.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-scholars.github.io/ansible-tutorial">Ansible Tutorial</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ansible-tutorial" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="01-setup.html">1. Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#ansible">Setup Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#downloadtutorial">Get Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#preparingkeys">Preparing SSH keys</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#bootingservers">Booting Servers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-getting-started.html">2. Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#ide">Editor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#inventory">Defining an Inventory</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#runningansible">Running Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#escalation">Privilege Escalation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#playbook">Playbooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-advanced.html">3. Templates</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#createtemplates">Create Templates</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#ansiblevault">Create Templates</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Ansible Tutorial</a></li>
+    <li><a href="03-advanced.html">3. Templates</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/ansible-tutorial/edit/master/documentation/modules/ROOT/pages/03-advanced.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Ansible Templates</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ansible supports <a href="http://jinja.pocoo.org/docs/">Jinja2 templating language</a> for creating templates and render them at the host replacing the placeholders with either implicit or explicit vars.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="createtemplates"><a class="anchor" href="#createtemplates"></a>Creation of Templates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s create two template files, one for configuring the application, and another one for setting the date the script was run.</p>
+</div>
+<div class="paragraph">
+<p>Create a new directory named <code>templates</code> to store both files:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir templates</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then create two <em>Jinja2</em> template files inside:</p>
+</div>
+<div class="paragraph">
+<p>The first one is the release template which sets the date when the file is rendered.
+Name the file <code>release.j2</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">templates/release.j2</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"><i class="conum" data-value="1"></i><b>(1)</b>
+{{ ansible_date_time.iso8601 }}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Ansible has an implicit variable to get date</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The second one is a properties configuration file setting some properties like the <strong>hostname</strong>, <strong>buffer_size</strong> depending on the amount of the available memory, and a <strong>username</strong> and <strong>password</strong>.
+Some of these properties are set from Anisble variables, and others set manually.
+Name the file <code>conf.properties.j2</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">templates/conf.properties.j2</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-jinja2 hljs" data-lang="jinja2"><i class="conum" data-value="1"></i><b>(1)</b>
+hostname={{ ansible_hostname }}
+
+<i class="conum" data-value="2"></i><b>(2)</b>
+{% if ansible_memtotal_mb &gt; 500 %}
+buffer_size=30
+{% else %}
+buffer_size=100
+{% endif %}
+
+<i class="conum" data-value="3"></i><b>(3)</b>
+username={{ username }}
+password={{ password }}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Hostname where template is rendered</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Conditional structure in Jinja2</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Custom properties</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Go back to the root directory to create the Ansible file:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create a new Ansible file, defining the custom properties value, iterating through both template files, and rendering them into a destination folder:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">template.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- name: configuration template
+  hosts: all
+  vars: <i class="conum" data-value="1"></i><b>(1)</b>
+    - username: Alex
+    - password: Alex
+  tasks:
+    - name: Copy conf files
+      loop: <i class="conum" data-value="2"></i><b>(2)</b>
+        - conf.properties
+        - release
+      template: <i class="conum" data-value="3"></i><b>(3)</b>
+        src: "{{item}}.j2" <i class="conum" data-value="4"></i><b>(4)</b>
+        dest: "/tmp/{{item}}" <i class="conum" data-value="5"></i><b>(5)</b>
+    - name: Display conf.properties contents
+      command: cat conf.properties chdir=/tmp
+      register: command_output
+    - name: Print to console
+      debug:
+        msg: "{{command_output.stdout}}"</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Section to set variables values</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Loop section setting the list of template files</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><code>template</code> section used to configure template locations</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><code>templates</code> folder is implicitly set as the source directory</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Remote folder where templates are rendered</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Then you can run Ansible as usually from the command line:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook -i inventory template.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+
+PLAY [configuration template] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [staging]
+ok: [production]
+
+TASK [Copy conf files] *********************************************************
+ok: [staging] =&gt; (item=conf.properties)
+changed: [production] =&gt; (item=conf.properties)
+changed: [staging] =&gt; (item=release)
+changed: [production] =&gt; (item=release)
+
+TASK [Display conf.properties contents] ****************************************
+changed: [staging]
+changed: [production]
+
+TASK [Print to console] ********************************************************
+ok: [staging] =&gt; {
+    "msg": "# &lt;1&gt;\nhostname=6d4b0c215195\n\n# &lt;2&gt;\nbuffer_size=30\n\n# &lt;3&gt;\nusername=Alex\npassword=Alex"
+}
+ok: [production] =&gt; {
+    "msg": "# &lt;1&gt;\nhostname=f602be09e2c3\n\n# &lt;2&gt;\nbuffer_size=30\n\n# &lt;3&gt;\nusername=Alex\npassword=Alex"
+}
+
+PLAY RECAP *********************************************************************
+production                 : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+staging                    : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setting_variables_externally"><a class="anchor" href="#_setting_variables_externally"></a>Setting Variables externally</h3>
+<div class="paragraph">
+<p>In the previous example, we&#8217;ve set the variables in the Ansible file, but you can override them from command line using the <code>extra-vars</code> argument.</p>
+</div>
+<div class="paragraph">
+<p>Create a new file named <code>staging.yaml</code> to set these variable in a <em>YAML</em> file:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">staging.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">username: test
+password: test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then let&#8217;s apply these parameters in the case case of staging servers.
+Run the following command to run tasks on staging environment with variables set in the <code>staging.yaml</code> file:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook -l staging -i inventory template.yaml --extra-vars "@staging.yaml"</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+
+PLAY [configuration template] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [staging]
+
+TASK [Copy conf files] *********************************************************
+changed: [staging] =&gt; (item=conf.properties)
+changed: [staging] =&gt; (item=release)
+
+TASK [Display conf.properties contents] ****************************************
+changed: [staging]
+
+TASK [Print to console] ********************************************************
+ok: [staging] =&gt; {
+    "msg": "# &lt;1&gt;\nhostname=6d4b0c215195\n\n# &lt;2&gt;\nbuffer_size=30\n\n# &lt;3&gt;\nusername=test\npassword=test"
+}
+
+PLAY RECAP *********************************************************************
+staging                    : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ansiblevault"><a class="anchor" href="#ansiblevault"></a>Ansible Vault</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At this point, we&#8217;re able to configure the application depending on the environment, staging with some values and production with others.</p>
+</div>
+<div class="paragraph">
+<p>But, there are some properties sensitive and should be protected, for example the username and password of the application (specially in production).</p>
+</div>
+<div class="sect2">
+<h3 id="_encrypting"><a class="anchor" href="#_encrypting"></a>Encrypting</h3>
+<div class="paragraph">
+<p>Ansible comes with Ansible Vault to manage this scenario.
+Let&#8217;s create a <em>YAML</em> configuration file but with content encrypted.</p>
+</div>
+<div class="paragraph">
+<p>In the terminal window run the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault create prod.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">New Vault password:
+Confirm New Vault password:</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set <code>mysecret</code> as the password, and in the editor file copy the content to protect:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">prod.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">username: Secret
+password: Secret</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Save the file, and inspect the content of the generated file:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">$ANSIBLE_VAULT;1.1;AES256
+66343761653764386535666430306133386536303662373335633638653562373035316632643366
+3032356164306165323964303764616231643562356662650a386336633037666234333430353837
+35643966373537323264333461353035623639386562663561363666353938616432656264626164
+3332326431306362370a626538636336646530363037346261616631393438353865303934363934
+63333830346334623235653565643463326461663839616366333533303436376161626433303765
+6231333662356364646138366134643864333565656634366634</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The file is encrypted, so no attacker might guess the values.
+At this point, file is safe to publish in Git repository or shared with others.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_decrypting"><a class="anchor" href="#_decrypting"></a>Decrypting</h3>
+<div class="paragraph">
+<p>To decrypt this file while running Ansible, use the <code>--ask-vault-pass</code> option to set Ansible to ask for the password to decrypt the encrypted files.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s apply the encrypted properties file to production environment.
+Run the following command in the terminal to create the file to production environmemt:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ansible-playbook -l production -i inventory template.yaml --extra-vars "@prod.yaml" --ask-vault-pass
+Vault password:</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set <code>mysecret</code> as the password.</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+
+PLAY [configuration template] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [production]
+
+TASK [Copy conf files] *********************************************************
+changed: [production] =&gt; (item=conf.properties)
+changed: [production] =&gt; (item=release)
+
+TASK [Display conf.properties contents] ****************************************
+changed: [production]
+
+TASK [Print to console] ********************************************************
+ok: [production] =&gt; {
+    "msg": "# &lt;1&gt;\nhostname=f602be09e2c3\n\n# &lt;2&gt;\nbuffer_size=30\n\n# &lt;3&gt;\nusername=Secret\npassword=Secret"
+} <i class="conum" data-value="1"></i><b>(1)</b>
+
+PLAY RECAP *********************************************************************
+production                 : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The content is created decrypted inside the host</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="02-getting-started.html">2. Getting Started</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
