@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/01-setup.html</loc>
-<lastmod>2023-02-08T18:39:19.068Z</lastmod>
+<lastmod>2023-02-08T18:42:24.226Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/02-getting-started.html</loc>
-<lastmod>2023-02-08T18:39:19.068Z</lastmod>
+<lastmod>2023-02-08T18:42:24.226Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/03-advanced.html</loc>
-<lastmod>2023-02-08T18:39:19.068Z</lastmod>
+<lastmod>2023-02-08T18:42:24.226Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/04-roles.html</loc>
-<lastmod>2023-02-08T18:39:19.068Z</lastmod>
+<lastmod>2023-02-08T18:42:24.226Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/index.html</loc>
-<lastmod>2023-02-08T18:39:19.068Z</lastmod>
+<lastmod>2023-02-08T18:42:24.226Z</lastmod>
 </url>
 </urlset>
