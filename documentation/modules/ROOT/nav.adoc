@@ -20,3 +20,4 @@
 ** xref:04-roles.adoc#firstrole[First Role]
 ** xref:04-roles.adoc#handlers[Handlers]
 ** xref:04-roles.adoc#sharingroles[Sharing Roles]
+** xref:04-roles.adoc#ansiblegalaxy[Ansible Galaxy]
