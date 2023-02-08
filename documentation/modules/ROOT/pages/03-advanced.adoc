@@ -1,11 +1,17 @@
 = Ansible Templates
 
-Ansible supports http://jinja.pocoo.org/docs/[Jinja2 templating language] for creating templates and render them at the host replacing the placeholders with either implicit or explicit vars.
+In this section, you'll learn the following:
+
+* [x] Create Ansible templates
+* [x] Set variables values
+* [x] Encrypt/Decrypt sensitive data
+
+Ansible supports http://jinja.pocoo.org/docs/[Jinja2 templating language] for creating templates and rendering them at the host, replacing the placeholders with either implicit or explicit vars.
 
 [#createtemplates]
 == Creation of Templates
 
-Let's create two template files, one for configuring the application, and another one for setting the date the script was run.
+Let's create two template files, one for configuring the application and another for setting the date the script was run.
 
 Create a new directory named `templates` to store both files:
 
@@ -30,7 +36,7 @@ Name the file `release.j2`:
 <1> Ansible has an implicit variable to get date
 
 The second one is a properties configuration file setting some properties like the *hostname*, *buffer_size* depending on the amount of the available memory, and a *username* and *password*.
-Some of these properties are set from Anisble variables, and others set manually.
+Some of these properties are set from Ansible variables, and others are set manually.
 Name the file `conf.properties.j2`:
 
 [.console-input]
@@ -91,12 +97,12 @@ Create a new Ansible file, defining the custom properties value, iterating throu
         msg: "{{command_output.stdout}}"
 ----
 <1> Section to set variables values
-<2> Loop section setting the list of template files
+<2> Loop section establishing the list of template files
 <3> `template` section used to configure template locations
 <4> `templates` folder is implicitly set as the source directory
 <5> Remote folder where templates are rendered
 
-Then you can run Ansible as usually from the command line:
+Then you can run Ansible as usual from the command line:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -141,9 +147,9 @@ staging                    : ok=4    changed=2    unreachable=0    failed=0    s
 
 === Setting Variables externally
 
-In the previous example, we've set the variables in the Ansible file, but you can override them from command line using the `extra-vars` argument.
+In the previous example, we've set the variables in the Ansible file, but you can override them from the command line using the `extra-vars` argument.
 
-Create a new file named `staging.yaml` to set these variable in a _YAML_ file:
+Create a new file named `staging.yaml` to set these variables in a _YAML_ file:
 
 [.console-input]
 [source, yaml,subs="+macros,+attributes"]
@@ -153,8 +159,8 @@ username: test
 password: test
 ----
 
-Then let's apply these parameters in the case case of staging servers.
-Run the following command to run tasks on staging environment with variables set in the `staging.yaml` file:
+Then let's apply these parameters in the case of staging servers.
+Run the following command to run tasks on the staging environment with variables set in the `staging.yaml` file:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -192,16 +198,16 @@ staging                    : ok=4    changed=2    unreachable=0    failed=0    s
 [#ansiblevault]
 == Ansible Vault
 
-At this point, we're able to configure the application depending on the environment, staging with some values and production with others.
+At this point, we can configure the application depending on the environment, staging with some values, and production with others.
 
-But, there are some properties sensitive and should be protected, for example the username and password of the application (specially in production).
+But, some properties are sensitive and should be protected, for example, the username and password of the application (especially in production).
 
 === Encrypting
 
 Ansible comes with Ansible Vault to manage this scenario.
-Let's create a _YAML_ configuration file but with content encrypted.
+Let's create a _YAML_ configuration file but with encrypted content.
 
-In the terminal window run the following command:
+In the terminal window, run the following command:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -247,8 +253,8 @@ At this point, file is safe to publish in Git repository or shared with others.
 
 To decrypt this file while running Ansible, use the `--ask-vault-pass` option to set Ansible to ask for the password to decrypt the encrypted files.
 
-Let's apply the encrypted properties file to production environment.
-Run the following command in the terminal to create the file to production environmemt:
+Let's apply the encrypted properties file to the production environment.
+Run the following command in the terminal to create the file for the production environment:
 
 [.console-input]
 [source, yaml,subs="+macros,+attributes"]

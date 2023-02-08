@@ -24,3 +24,9 @@ In this Ansible tutorial, you'll learn the basics of Ansible to start working wi
 .xref:03-advanced.adoc[Templates]
 * xref:03-advanced.adoc#createtemplates[Create Templates]
 * xref:03-advanced.adoc#ansiblevault[Securing Files]
+
+[.title]
+.xref:04-roles.adoc[Roles]
+* xref:04-roles.adoc#firstrole[First Role]
+* xref:04-roles.adoc#handlers[Handlers]
+* xref:04-roles.adoc#sharingroles[Sharing Roles]

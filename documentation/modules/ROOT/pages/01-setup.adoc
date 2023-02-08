@@ -1,6 +1,10 @@
 = Setup
 include::_attributes.adoc[]
 
+In this section, you'll learn:
+
+* [x] Installing the tools required for running this deep dive
+
 [#prerequisite]
 == Prerequisite CLI tools
 
@@ -38,7 +42,7 @@ WARNING: In case of not having `ensurepip` module installed, you can always down
 == Setup Ansible
 
 To install Ansible and all its toolset, use `pip`.
-In a terminal window run the following command:
+In a terminal window, run the following command:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -123,10 +127,10 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDISVzwTEBoVEygssPwpI/SmZkBvSgWcwkPfCWBTFpX
 [#bootingservers]
 == Booting Servers
 
-Ansible manages servers, and we need some servers to manage.
-One option could be to prepare some virtual machines and starting them locally, but since these are heavy, we are providing a `docker-compose` file that starts two containers acting as a "virtual machines".
+Ansible manages servers, and we need some servers to work.
+One option could be to prepare some virtual machines and start them locally, but since these are heavy, we are providing a `docker-compose` file that starts two containers acting as "virtual machines".
 
-In a terminal window, go to `apps` directory and run the `docker-compose` command:
+In a terminal window, go to the `apps` directory and run the `docker-compose` command:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -137,17 +141,35 @@ docker-compose up --remove-orphans
 [.console-output]
 [source, bash,subs="+macros,+attributes"]
 ----
-
+Attaching to apps_preprod_1, apps_prod_1
+prod_1     | /usr/lib/python3.11/site-packages/supervisor/options.py:474: UserWarning: Supervisord is running as root and it is searching for its configuration file in default locations (including its current working directory); you probably want to specify a "-c" argument specifying an absolute path to a configuration file for improved security.
+prod_1     |   self.warnings.warn(
+preprod_1  | /usr/lib/python3.11/site-packages/supervisor/options.py:474: UserWarning: Supervisord is running as root and it is searching for its configuration file in default locations (including its current working directory); you probably want to specify a "-c" argument specifying an absolute path to a configuration file for improved security.
+preprod_1  |   self.warnings.warn(
+prod_1     | 2023-02-07 08:57:47,469 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+prod_1     | 2023-02-07 08:57:47,470 WARN No file matches via include "/etc/supervisord.d/*.conf"
+preprod_1  | 2023-02-07 08:57:47,469 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+preprod_1  | 2023-02-07 08:57:47,471 WARN No file matches via include "/etc/supervisord.d/*.conf"
+preprod_1  | 2023-02-07 08:57:47,487 INFO RPC interface 'supervisor' initialized
+preprod_1  | 2023-02-07 08:57:47,487 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+preprod_1  | 2023-02-07 08:57:47,488 INFO supervisord started with pid 1
+prod_1     | 2023-02-07 08:57:47,489 INFO RPC interface 'supervisor' initialized
+prod_1     | 2023-02-07 08:57:47,490 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+prod_1     | 2023-02-07 08:57:47,490 INFO supervisord started with pid 1
+preprod_1  | 2023-02-07 08:57:48,493 INFO spawned: 'sshd' with pid 7
+prod_1     | 2023-02-07 08:57:48,495 INFO spawned: 'sshd' with pid 8
+prod_1     | 2023-02-07 08:57:49,499 INFO success: sshd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+preprod_1  | 2023-02-07 08:57:49,499 INFO success: sshd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 ----
 
-See that each server is exposing SSH service in different ports, one to `2223` and the other one to `2224`.
+See that each server exposes SSH service in different ports, one to `2223` and the other to `2224`.
 
 image::ansibleservers.png[]
 
-The last step before we can start using Ansible is copying the public key into the servers, so we can login using the local private key generated in the last step.
+The last step before we can start using Ansible is copying the public key into the servers, so we can login using the local private key generated in the previous step.
 
 In another terminal window run the following commands to copy the public key generated before.
-The password to enyer is `mypassword`:
+The password to encrypt is `mypassword`:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -194,10 +216,3 @@ Number of key(s) added:        1
 Now try logging into the machine, with:   "ssh -p '2224' 'root@localhost'"
 and check to make sure that only the key(s) you wanted were added.
 ----
-
-
-== roles.
-
-== templates
-
-== K8s

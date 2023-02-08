@@ -15,3 +15,8 @@
 * xref:03-advanced.adoc[3. Templates]
 ** xref:03-advanced.adoc#createtemplates[Create Templates]
 ** xref:03-advanced.adoc#ansiblevault[Securing Files]
+
+* xref:04-roles.adoc[4. Roles]
+** xref:04-roles.adoc#firstrole[First Role]
+** xref:04-roles.adoc#handlers[Handlers]
+** xref:04-roles.adoc#sharingroles[Sharing Roles]

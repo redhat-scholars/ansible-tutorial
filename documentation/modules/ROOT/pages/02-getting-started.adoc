@@ -1,23 +1,42 @@
 = Getting Started
 
+In this section, you'll learn the following:
+
+* [x] Create an Ansible inventory file
+* [x] Run Ansible with basic modules
+* [x] Executing commands in the remote host
+* [x] Installing packages to the remote host
+* [x] Create a Playbook file
+* [x] Copying files from the local host to the remote host
+* [x] Installing a Quarkus application (with its dependencies) into the remote host
+
 With machines up and running and Ansible installed, we can start managing the infrastructure.
 
-The first thing is create an `inventory` file.
-Ansible automates tasks on managed nodes or “hosts” in your infrastructure, using a list or group of lists of hosts. This is known as inventory file.
-Although this inventory file now is static, Ansible also supports getting hosts from dynamic resources like Cobbler or OpenStack.
+Create a new directory to store the Ansible code:
+
+[.console-input]
+[source, bash,subs="+macros,+attributes"]
+----
+mkdir -p $TUTORIAL_HOME/app1
+cd $TUTORIAL_HOME/app1
+----
 
 [#ide]
 == IDE
 
-You can use any editor to create Ansible files, but we'd recommend you using Visual Studio Code with Ansible extension:
+You can use any editor to create Ansible files, but we'd recommend you use Visual Studio Code with Ansible extension:
 
 image:ansibleide.png[]
 
 [#inventory]
 == Inventory
 
+The first thing is creating an `inventory` file.
+Ansible automates tasks on managed nodes or "hosts" in your infrastructure using a list or group of lists of hosts. This is known as an inventory file.
+Although this inventory file is now static, Ansible also supports getting hosts from dynamic resources like Cobbler or OpenStack.
+
 The inventory file can be created in _YAML_ or _INI_ format.
-In this example_INI_ format is used as it's easy to understand and error-prone to white spaces.
+In this example _INI_ format is used as it's easy to understand and error-prone to white spaces.
 
 So, let's create the inventory file for managing both servers grouped in two categories (`staging` and `production`):
 
@@ -34,7 +53,7 @@ staging ansible_user=root ansible_host=127.0.0.1 ansible_port=2223 ansible_ssh_p
 production ansible_user=root ansible_host=127.0.0.1 ansible_port=2224 ansible_ssh_private_key_file=~/.ssh/id_rsa_ansible
 ----
 
-In this inventory file, we set two two groups of servers, one for the staging and another for the production environments.
+In this inventory file, we set two groups of servers, one for the staging and another for the production environments.
 
 For each entry, we set the user to login, the hostname/IP, the SSH port, and 
 the private key to use.
@@ -92,14 +111,14 @@ ansible-inventory -i inventory --list
 [#runningansible]
 == Running Ansible
 
-One of the most important parts of Ansible is *Modules* which are portions of code executed from Ansible, usually on the remote target node (using the SSH connection), and collects return values.
+One of the essential parts of Ansible is *Modules*, which are portions of code executed from Ansible, usually on the remote target node (using the SSH connection), and collects return values.
 
-An example of module is the *ping* module.
-This module contains the code to execute a ping aganist servers.
+An example of a module is the *ping* module.
+This module contains the code to execute a ping against servers.
 
 In the same way, there is a module to copy files from a local directory to the remote server.
 
-Of course, you could implement them running commands/shell scripts, but Ansible provides these modules for you.
+Of course, you could implement them by running commands/shell scripts, but Ansible provides these modules.
 
 [#modulecli]
 === Ping module
@@ -152,7 +171,7 @@ production | SUCCESS => {
 }
 ----
 
-You can use also directly the IP/hostname of the server, or the special keyword `all` to execute it to all servers defined in the inventory file.
+You can also use the IP/hostname of the server or the particular keyword `all directly` to execute it to all servers defined in the inventory file.
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -184,7 +203,7 @@ production | SUCCESS => {
 [#modulecommand]
 === Command module
 
-Sometimes we only want to execute a command against servers, so not relay on any module but sending the command directly through SSH connection.
+Sometimes we only want to execute a command against servers, so we do not rely on any module but send the command directly through an SSH connection.
 For these cases, there is the command module.
 Let's run the `uptime` command inside all servers defined in the inventory.
 
@@ -206,13 +225,13 @@ staging | FAILED | rc=2 >>
 [Errno 2] No such file or directory: b'uptime'
 ----
 
-`uptime` command is not present in the servers, so Ansible gets back the error message.
-To fix this problem, let's install `uptime` program to all servers.
+The uptime command is not present in the servers, so Ansible gets back the error message.
+Let's install the `uptime` program on all servers to fix this problem.
 Since servers are a Fedora distribution, we use the `dnf` module to install the package.
 
 INFO: `uptime` program is inside the `procps-ng` package.
 
-Run the following command to run `dnf` to all servers with `name` argument set to `procps-ng`:
+Run the following command to run `dnf` to all servers with the `name` argument set to `procps-ng`:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -271,9 +290,9 @@ staging | CHANGED | rc=0 >>
 [#escalation]
 == Privilege Escalation
 
-For the sake of simplicity, we are login into the machines as the root user.
-This let's you access to protected resources.
-To validate `dnf` log, we can run:
+For simplicity, we are login into the machines as the root user.
+This lets you access protected resources.
+To validate the `dnf` log, we can run the following:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -295,15 +314,15 @@ staging | CHANGED | rc=0 >>
 2023-01-16T17:32:49+0000 DDEBUG Releasever: 37
 ----
 
-In this case works because we're already root, but in case of logged with a non-root user, we might need some privilage escalation to execute the command.
+This case works because we're already root, but logging with a non-root user might need some privilege escalation to execute the command.
 
-Ansible offers several arguments to do that escalation, but the most used are `--become` and `-K`.
+Ansible offers several arguments for that escalation, but the most used are `--become` and `-K`.
 
-The `--become` argument is used to run the operations with a privilege escalation. By default it's `sudo`, but it could be `su`, `pbrun`, ...
+The `--become` argument is used to run the operations with a privilege escalation. By default, it's `sudo`, but it could be `su`, `pbrun`, ...
 
-The `-K` argument is used to ask for privilege escalation password.
+The `-K` argument is used to ask for a privilege escalation password.
 
-So in case of not being root user, the previous command should be:
+So in case of not being a root user, the previous command should be:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -315,23 +334,23 @@ ansible staging --become -K -i inventory -a "cat /var/log/dnf.log"
 == Playbooks
 
 So far, we've seen running commands against a list of servers using Ansible, and this might be good when the command is simple.
-But what's happen when we need to run a list of operations against the servers, for example installing the Java Virtual Machine, copying our application files into the servers, and start it?
+But what happens when we need to run a list of operations against the servers, for example, installing the Java Virtual Machine, copying our application files into the servers, and starting it?
 
-One option could be running `ansible` command several times in the terminal manually.
+One option could be manually running the `ansible` command several times in the terminal.
 But Ansible offers a way to define all these instructions/steps/tasks in a single file and apply them to all inventory elements.
 This file in Ansible is named a *playbook*.
 
 A playbook is a YAML file where we configure all these execution steps.
 
-Let's see a full example of how to prepare, install and run a Java application into each of the servers defined in the inventory.
+Let's see a complete example of preparing, installing, and running a Java application into each of the servers defined in the inventory.
 
 [#firstplaybook]
 === Prepare Environments
 
-The first part of our playbook is composed by the installation of the Java Virtual Machine, and the creation of the directory where the application will be copied.
+The first part of our playbook is composed of installing the Java Virtual Machine and creating the directory where the application will be copied.
 
-To do that `dnf` and `file` modules are used.
-Create a new file named `playbook.yaml` in the same directory as inventory with the following content:
+To do that, `dnf` and `file` modules are used.
+Create a new file named `playbook.yaml` in the same directory as the inventory with the following content:
 
 [.console-input]
 [source, yaml,subs="+macros,+attributes"]
@@ -354,12 +373,12 @@ Create a new file named `playbook.yaml` in the same directory as inventory with 
 ----
 <1> Apply all tasks to all machines defined in the inventory file
 <2> Execute commands with `sudo`
-<3> Run `dnf` against the value of variable item
+<3> Run `dnf` against the value of the variable item
 <4> Loops through the array of elements, setting them in the `item` var and executing `dnf`
-<5> Use `file` module to create a directory
+<5> Use the `file` module to create a directory
 <6> Creates `/var/hello` directory in all machines
 
-To apply a playbook, run the following command:
+To apply a Playbook, run the following command:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -395,11 +414,11 @@ staging                    : ok=3    changed=2    unreachable=0    failed=0    s
 [#installapp]
 === Installing the Application
 
-The following phase is copying the application to `/var/hello` directory, and configure Supervisord to control the application process.
+The following phase is copying the application to the `/var/hello` directory and configuring Supervisord to control the application process.
 
-Before modifying the playbook content, download https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello-world-1.0.0-SNAPSHOT-runner.jar[Application] and https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello.conf[Supervisord Configuration] and copy them in the same directory as playbook.
+Before modifying the Playbook content, download https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello-world-1.0.0-SNAPSHOT-runner.jar[Application] and https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello.conf[Supervisord Configuration] and copy them in the same directory as playbook.
 
-Append to the previous playbook file, the following tasks:
+Append to the previous Playbook file, the following tasks:
 
 [.console-input]
 [source, yaml,subs="+macros,+attributes"]
@@ -428,9 +447,9 @@ Append to the previous playbook file, the following tasks:
       command: /usr/bin/supervisorctl update
       tags: ['app'] # <4>
 ----
-<1> Copy module copies file from local directory to remote machine
+<1> Copy module copies file from local directory to the remote machine
 <2> Add supervisord configuration file
-<3> Restart supervisord daemon to load the configuration and start the application
+<3> Restart the supervisord daemon to load the configuration and start the application
 <4> Tags section is used to categorize tasks
 
 The full playbook file should look like:
@@ -562,7 +581,7 @@ preprod_1  | 2023-01-27 15:27:05,469 INFO reaped unknown pid 762 (exit status 25
 [#validating]
 === Automatic Validation
 
-We validated manually the correctness of the deployment, but Ansible also supports this use case.
+We validated the correctness of the deployment manually, but Ansible also supports this use case.
 
 [.console-input]
 [source, yaml,subs="+macros,+attributes"]
@@ -579,9 +598,9 @@ We validated manually the correctness of the deployment, but Ansible also suppor
         var: response.content # <3>
       tags: ['test']
 ----
-<1> Use `uri` module to query service
+<1> Use the `uri` module to query service
 <2> Record return content into `response` variable
-<3> Use `debug` module to print the content of `response` variable (output)
+<3> Use the `debug` module to print the content of `response` variable (output)
 
 The full playbook file should look like:
 
@@ -637,7 +656,7 @@ The full playbook file should look like:
       tags: ['test']
 ----
 
-You can run all the Ansible playbook or restrict to only run the `test` tasks:
+You can run all the Ansible Playbook or restrict to only run the `test` tasks:
 
 [.console-input]
 [source, yaml,subs="+macros,+attributes"]
