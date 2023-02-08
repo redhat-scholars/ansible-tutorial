@@ -105,6 +105,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-roles.html">4. Roles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-roles.html#firstrole">First Role</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-roles.html#handlers">Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-roles.html#sharingroles">Sharing Roles</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </li>
 </ul>
@@ -131,12 +146,44 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>In this section, you&#8217;ll learn the following:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Create an Ansible inventory file</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Run Ansible with basic modules</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Executing commands in the remote host</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Installing packages to the remote host</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Create a Playbook file</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Copying files from the local host to the remote host</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Installing a Quarkus application (with its dependencies) into the remote host</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p>With machines up and running and Ansible installed, we can start managing the infrastructure.</p>
 </div>
 <div class="paragraph">
-<p>The first thing is create an <code>inventory</code> file.
-Ansible automates tasks on managed nodes or “hosts” in your infrastructure, using a list or group of lists of hosts. This is known as inventory file.
-Although this inventory file now is static, Ansible also supports getting hosts from dynamic resources like Cobbler or OpenStack.</p>
+<p>Create a new directory to store the Ansible code:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p $TUTORIAL_HOME/app1
+cd $TUTORIAL_HOME/app1</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -144,7 +191,7 @@ Although this inventory file now is static, Ansible also supports getting hosts 
 <h2 id="ide"><a class="anchor" href="#ide"></a>IDE</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can use any editor to create Ansible files, but we&#8217;d recommend you using Visual Studio Code with Ansible extension:</p>
+<p>You can use any editor to create Ansible files, but we&#8217;d recommend you use Visual Studio Code with Ansible extension:</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="_images/ansibleide.png" alt="ansibleide"></span></p>
@@ -155,8 +202,13 @@ Although this inventory file now is static, Ansible also supports getting hosts 
 <h2 id="inventory"><a class="anchor" href="#inventory"></a>Inventory</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>The first thing is creating an <code>inventory</code> file.
+Ansible automates tasks on managed nodes or "hosts" in your infrastructure using a list or group of lists of hosts. This is known as an inventory file.
+Although this inventory file is now static, Ansible also supports getting hosts from dynamic resources like Cobbler or OpenStack.</p>
+</div>
+<div class="paragraph">
 <p>The inventory file can be created in <em>YAML</em> or <em>INI</em> format.
-In this example_INI_ format is used as it&#8217;s easy to understand and error-prone to white spaces.</p>
+In this example <em>INI</em> format is used as it&#8217;s easy to understand and error-prone to white spaces.</p>
 </div>
 <div class="paragraph">
 <p>So, let&#8217;s create the inventory file for managing both servers grouped in two categories (<code>staging</code> and <code>production</code>):</p>
@@ -175,7 +227,7 @@ production ansible_user=root ansible_host=127.0.0.1 ansible_port=2224 ansible_ss
 </div>
 </div>
 <div class="paragraph">
-<p>In this inventory file, we set two two groups of servers, one for the staging and another for the production environments.</p>
+<p>In this inventory file, we set two groups of servers, one for the staging and another for the production environments.</p>
 </div>
 <div class="paragraph">
 <p>For each entry, we set the user to login, the hostname/IP, the SSH port, and
@@ -236,17 +288,17 @@ the private key to use.</p>
 <h2 id="runningansible"><a class="anchor" href="#runningansible"></a>Running Ansible</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>One of the most important parts of Ansible is <strong>Modules</strong> which are portions of code executed from Ansible, usually on the remote target node (using the SSH connection), and collects return values.</p>
+<p>One of the essential parts of Ansible is <strong>Modules</strong>, which are portions of code executed from Ansible, usually on the remote target node (using the SSH connection), and collects return values.</p>
 </div>
 <div class="paragraph">
-<p>An example of module is the <strong>ping</strong> module.
-This module contains the code to execute a ping aganist servers.</p>
+<p>An example of a module is the <strong>ping</strong> module.
+This module contains the code to execute a ping against servers.</p>
 </div>
 <div class="paragraph">
 <p>In the same way, there is a module to copy files from a local directory to the remote server.</p>
 </div>
 <div class="paragraph">
-<p>Of course, you could implement them running commands/shell scripts, but Ansible provides these modules for you.</p>
+<p>Of course, you could implement them by running commands/shell scripts, but Ansible provides these modules.</p>
 </div>
 <div class="sect2">
 <h3 id="modulecli"><a class="anchor" href="#modulecli"></a>Ping module</h3>
@@ -310,7 +362,7 @@ production | SUCCESS =&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>You can use also directly the IP/hostname of the server, or the special keyword <code>all</code> to execute it to all servers defined in the inventory file.</p>
+<p>You can also use the IP/hostname of the server or the particular keyword <code>all directly</code> to execute it to all servers defined in the inventory file.</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -341,7 +393,7 @@ production | SUCCESS =&gt; {
 <div class="sect2">
 <h3 id="modulecommand"><a class="anchor" href="#modulecommand"></a>Command module</h3>
 <div class="paragraph">
-<p>Sometimes we only want to execute a command against servers, so not relay on any module but sending the command directly through SSH connection.
+<p>Sometimes we only want to execute a command against servers, so we do not rely on any module but send the command directly through an SSH connection.
 For these cases, there is the command module.
 Let&#8217;s run the <code>uptime</code> command inside all servers defined in the inventory.</p>
 </div>
@@ -369,15 +421,15 @@ staging | FAILED | rc=2 &gt;&gt;
 </div>
 </div>
 <div class="paragraph">
-<p><code>uptime</code> command is not present in the servers, so Ansible gets back the error message.
-To fix this problem, let&#8217;s install <code>uptime</code> program to all servers.
+<p>The uptime command is not present in the servers, so Ansible gets back the error message.
+Let&#8217;s install the <code>uptime</code> program on all servers to fix this problem.
 Since servers are a Fedora distribution, we use the <code>dnf</code> module to install the package.</p>
 </div>
 <div class="paragraph">
 <p>INFO: <code>uptime</code> program is inside the <code>procps-ng</code> package.</p>
 </div>
 <div class="paragraph">
-<p>Run the following command to run <code>dnf</code> to all servers with <code>name</code> argument set to <code>procps-ng</code>:</p>
+<p>Run the following command to run <code>dnf</code> to all servers with the <code>name</code> argument set to <code>procps-ng</code>:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -437,9 +489,9 @@ staging | CHANGED | rc=0 &gt;&gt;
 <h2 id="escalation"><a class="anchor" href="#escalation"></a>Privilege Escalation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For the sake of simplicity, we are login into the machines as the root user.
-This let&#8217;s you access to protected resources.
-To validate <code>dnf</code> log, we can run:</p>
+<p>For simplicity, we are login into the machines as the root user.
+This lets you access protected resources.
+To validate the <code>dnf</code> log, we can run the following:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -460,19 +512,19 @@ staging | CHANGED | rc=0 &gt;&gt;
 </div>
 </div>
 <div class="paragraph">
-<p>In this case works because we&#8217;re already root, but in case of logged with a non-root user, we might need some privilage escalation to execute the command.</p>
+<p>This case works because we&#8217;re already root, but logging with a non-root user might need some privilege escalation to execute the command.</p>
 </div>
 <div class="paragraph">
-<p>Ansible offers several arguments to do that escalation, but the most used are <code>--become</code> and <code>-K</code>.</p>
+<p>Ansible offers several arguments for that escalation, but the most used are <code>--become</code> and <code>-K</code>.</p>
 </div>
 <div class="paragraph">
-<p>The <code>--become</code> argument is used to run the operations with a privilege escalation. By default it&#8217;s <code>sudo</code>, but it could be <code>su</code>, <code>pbrun</code>, &#8230;&#8203;</p>
+<p>The <code>--become</code> argument is used to run the operations with a privilege escalation. By default, it&#8217;s <code>sudo</code>, but it could be <code>su</code>, <code>pbrun</code>, &#8230;&#8203;</p>
 </div>
 <div class="paragraph">
-<p>The <code>-K</code> argument is used to ask for privilege escalation password.</p>
+<p>The <code>-K</code> argument is used to ask for a privilege escalation password.</p>
 </div>
 <div class="paragraph">
-<p>So in case of not being root user, the previous command should be:</p>
+<p>So in case of not being a root user, the previous command should be:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -486,10 +538,10 @@ staging | CHANGED | rc=0 &gt;&gt;
 <div class="sectionbody">
 <div class="paragraph">
 <p>So far, we&#8217;ve seen running commands against a list of servers using Ansible, and this might be good when the command is simple.
-But what&#8217;s happen when we need to run a list of operations against the servers, for example installing the Java Virtual Machine, copying our application files into the servers, and start it?</p>
+But what happens when we need to run a list of operations against the servers, for example, installing the Java Virtual Machine, copying our application files into the servers, and starting it?</p>
 </div>
 <div class="paragraph">
-<p>One option could be running <code>ansible</code> command several times in the terminal manually.
+<p>One option could be manually running the <code>ansible</code> command several times in the terminal.
 But Ansible offers a way to define all these instructions/steps/tasks in a single file and apply them to all inventory elements.
 This file in Ansible is named a <strong>playbook</strong>.</p>
 </div>
@@ -497,16 +549,16 @@ This file in Ansible is named a <strong>playbook</strong>.</p>
 <p>A playbook is a YAML file where we configure all these execution steps.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s see a full example of how to prepare, install and run a Java application into each of the servers defined in the inventory.</p>
+<p>Let&#8217;s see a complete example of preparing, installing, and running a Java application into each of the servers defined in the inventory.</p>
 </div>
 <div class="sect2">
 <h3 id="firstplaybook"><a class="anchor" href="#firstplaybook"></a>Prepare Environments</h3>
 <div class="paragraph">
-<p>The first part of our playbook is composed by the installation of the Java Virtual Machine, and the creation of the directory where the application will be copied.</p>
+<p>The first part of our playbook is composed of installing the Java Virtual Machine and creating the directory where the application will be copied.</p>
 </div>
 <div class="paragraph">
-<p>To do that <code>dnf</code> and <code>file</code> modules are used.
-Create a new file named <code>playbook.yaml</code> in the same directory as inventory with the following content:</p>
+<p>To do that, <code>dnf</code> and <code>file</code> modules are used.
+Create a new file named <code>playbook.yaml</code> in the same directory as the inventory with the following content:</p>
 </div>
 <div class="listingblock console-input">
 <div class="title">playbook.yaml</div>
@@ -539,7 +591,7 @@ Create a new file named <code>playbook.yaml</code> in the same directory as inve
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Run <code>dnf</code> against the value of variable item</td>
+<td>Run <code>dnf</code> against the value of the variable item</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -547,7 +599,7 @@ Create a new file named <code>playbook.yaml</code> in the same directory as inve
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Use <code>file</code> module to create a directory</td>
+<td>Use the <code>file</code> module to create a directory</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
@@ -556,7 +608,7 @@ Create a new file named <code>playbook.yaml</code> in the same directory as inve
 </table>
 </div>
 <div class="paragraph">
-<p>To apply a playbook, run the following command:</p>
+<p>To apply a Playbook, run the following command:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -591,13 +643,13 @@ staging                    : ok=3    changed=2    unreachable=0    failed=0    s
 <div class="sect2">
 <h3 id="installapp"><a class="anchor" href="#installapp"></a>Installing the Application</h3>
 <div class="paragraph">
-<p>The following phase is copying the application to <code>/var/hello</code> directory, and configure Supervisord to control the application process.</p>
+<p>The following phase is copying the application to the <code>/var/hello</code> directory and configuring Supervisord to control the application process.</p>
 </div>
 <div class="paragraph">
-<p>Before modifying the playbook content, download <a href="https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello-world-1.0.0-SNAPSHOT-runner.jar">Application</a> and <a href="https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello.conf">Supervisord Configuration</a> and copy them in the same directory as playbook.</p>
+<p>Before modifying the Playbook content, download <a href="https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello-world-1.0.0-SNAPSHOT-runner.jar">Application</a> and <a href="https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello.conf">Supervisord Configuration</a> and copy them in the same directory as playbook.</p>
 </div>
 <div class="paragraph">
-<p>Append to the previous playbook file, the following tasks:</p>
+<p>Append to the previous Playbook file, the following tasks:</p>
 </div>
 <div class="listingblock console-input">
 <div class="title">playbook.yaml</div>
@@ -630,7 +682,7 @@ staging                    : ok=3    changed=2    unreachable=0    failed=0    s
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Copy module copies file from local directory to remote machine</td>
+<td>Copy module copies file from local directory to the remote machine</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -638,7 +690,7 @@ staging                    : ok=3    changed=2    unreachable=0    failed=0    s
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Restart supervisord daemon to load the configuration and start the application</td>
+<td>Restart the supervisord daemon to load the configuration and start the application</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -785,7 +837,7 @@ preprod_1  | 2023-01-27 15:27:05,469 INFO reaped unknown pid 762 (exit status 25
 <div class="sect2">
 <h3 id="validating"><a class="anchor" href="#validating"></a>Automatic Validation</h3>
 <div class="paragraph">
-<p>We validated manually the correctness of the deployment, but Ansible also supports this use case.</p>
+<p>We validated the correctness of the deployment manually, but Ansible also supports this use case.</p>
 </div>
 <div class="listingblock console-input">
 <div class="title">playbook.yaml</div>
@@ -806,7 +858,7 @@ preprod_1  | 2023-01-27 15:27:05,469 INFO reaped unknown pid 762 (exit status 25
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Use <code>uri</code> module to query service</td>
+<td>Use the <code>uri</code> module to query service</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -814,7 +866,7 @@ preprod_1  | 2023-01-27 15:27:05,469 INFO reaped unknown pid 762 (exit status 25
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Use <code>debug</code> module to print the content of <code>response</code> variable (output)</td>
+<td>Use the <code>debug</code> module to print the content of <code>response</code> variable (output)</td>
 </tr>
 </table>
 </div>
@@ -873,7 +925,7 @@ preprod_1  | 2023-01-27 15:27:05,469 INFO reaped unknown pid 762 (exit status 25
 </div>
 </div>
 <div class="paragraph">
-<p>You can run all the Ansible playbook or restrict to only run the <code>test</code> tasks:</p>
+<p>You can run all the Ansible Playbook or restrict to only run the <code>test</code> tasks:</p>
 </div>
 <div class="listingblock console-input">
 <div class="title">playbook.yaml</div>

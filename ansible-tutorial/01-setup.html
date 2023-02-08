@@ -105,6 +105,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-roles.html">4. Roles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-roles.html#firstrole">First Role</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-roles.html#handlers">Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-roles.html#sharingroles">Sharing Roles</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </li>
 </ul>
@@ -128,6 +143,20 @@
   <div class="content">
 <article class="doc">
 <h1 class="page">Setup</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, you&#8217;ll learn:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Installing the tools required for running this deep dive</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="prerequisite"><a class="anchor" href="#prerequisite"></a>Prerequisite CLI tools</h2>
 <div class="sectionbody">
@@ -196,7 +225,7 @@ In case of not having <code>ensurepip</code> module installed, you can always do
 <div class="sectionbody">
 <div class="paragraph">
 <p>To install Ansible and all its toolset, use <code>pip</code>.
-In a terminal window run the following command:</p>
+In a terminal window, run the following command:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -308,11 +337,11 @@ Your public key has been saved in /Users/asotobu/.ssh/id_rsa_ansible.pub</code><
 <h2 id="bootingservers"><a class="anchor" href="#bootingservers"></a>Booting Servers</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ansible manages servers, and we need some servers to manage.
-One option could be to prepare some virtual machines and starting them locally, but since these are heavy, we are providing a <code>docker-compose</code> file that starts two containers acting as a "virtual machines".</p>
+<p>Ansible manages servers, and we need some servers to work.
+One option could be to prepare some virtual machines and start them locally, but since these are heavy, we are providing a <code>docker-compose</code> file that starts two containers acting as "virtual machines".</p>
 </div>
 <div class="paragraph">
-<p>In a terminal window, go to <code>apps</code> directory and run the <code>docker-compose</code> command:</p>
+<p>In a terminal window, go to the <code>apps</code> directory and run the <code>docker-compose</code> command:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -321,11 +350,29 @@ One option could be to prepare some virtual machines and starting them locally, 
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Attaching to apps_preprod_1, apps_prod_1
+prod_1     | /usr/lib/python3.11/site-packages/supervisor/options.py:474: UserWarning: Supervisord is running as root and it is searching for its configuration file in default locations (including its current working directory); you probably want to specify a "-c" argument specifying an absolute path to a configuration file for improved security.
+prod_1     |   self.warnings.warn(
+preprod_1  | /usr/lib/python3.11/site-packages/supervisor/options.py:474: UserWarning: Supervisord is running as root and it is searching for its configuration file in default locations (including its current working directory); you probably want to specify a "-c" argument specifying an absolute path to a configuration file for improved security.
+preprod_1  |   self.warnings.warn(
+prod_1     | 2023-02-07 08:57:47,469 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+prod_1     | 2023-02-07 08:57:47,470 WARN No file matches via include "/etc/supervisord.d/*.conf"
+preprod_1  | 2023-02-07 08:57:47,469 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+preprod_1  | 2023-02-07 08:57:47,471 WARN No file matches via include "/etc/supervisord.d/*.conf"
+preprod_1  | 2023-02-07 08:57:47,487 INFO RPC interface 'supervisor' initialized
+preprod_1  | 2023-02-07 08:57:47,487 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+preprod_1  | 2023-02-07 08:57:47,488 INFO supervisord started with pid 1
+prod_1     | 2023-02-07 08:57:47,489 INFO RPC interface 'supervisor' initialized
+prod_1     | 2023-02-07 08:57:47,490 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+prod_1     | 2023-02-07 08:57:47,490 INFO supervisord started with pid 1
+preprod_1  | 2023-02-07 08:57:48,493 INFO spawned: 'sshd' with pid 7
+prod_1     | 2023-02-07 08:57:48,495 INFO spawned: 'sshd' with pid 8
+prod_1     | 2023-02-07 08:57:49,499 INFO success: sshd entered RUNNING state, process has stayed up for &gt; than 1 seconds (startsecs)
+preprod_1  | 2023-02-07 08:57:49,499 INFO success: sshd entered RUNNING state, process has stayed up for &gt; than 1 seconds (startsecs)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>See that each server is exposing SSH service in different ports, one to <code>2223</code> and the other one to <code>2224</code>.</p>
+<p>See that each server exposes SSH service in different ports, one to <code>2223</code> and the other to <code>2224</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -333,11 +380,11 @@ One option could be to prepare some virtual machines and starting them locally, 
 </div>
 </div>
 <div class="paragraph">
-<p>The last step before we can start using Ansible is copying the public key into the servers, so we can login using the local private key generated in the last step.</p>
+<p>The last step before we can start using Ansible is copying the public key into the servers, so we can login using the local private key generated in the previous step.</p>
 </div>
 <div class="paragraph">
 <p>In another terminal window run the following commands to copy the public key generated before.
-The password to enyer is <code>mypassword</code>:</p>
+The password to encrypt is <code>mypassword</code>:</p>
 </div>
 <div class="listingblock console-input">
 <div class="title">Server One</div>
@@ -382,24 +429,6 @@ Now try logging into the machine, with:   "ssh -p '2224' 'root@localhost'"
 and check to make sure that only the key(s) you wanted were added.</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_roles"><a class="anchor" href="#_roles"></a>roles.</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_templates"><a class="anchor" href="#_templates"></a>templates</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_k8s"><a class="anchor" href="#_k8s"></a>K8s</h2>
-<div class="sectionbody">
-
 </div>
 </div>
 <nav class="pagination">

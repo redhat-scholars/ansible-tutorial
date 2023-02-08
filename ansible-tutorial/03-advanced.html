@@ -6,6 +6,7 @@
     <title>Ansible Templates :: Ansible Tutorial</title>
     <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/03-advanced.html">
     <link rel="prev" href="02-getting-started.html">
+    <link rel="next" href="04-roles.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -104,6 +105,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-roles.html">4. Roles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-roles.html#firstrole">First Role</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-roles.html#handlers">Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-roles.html#sharingroles">Sharing Roles</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </li>
 </ul>
@@ -130,7 +146,23 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ansible supports <a href="http://jinja.pocoo.org/docs/">Jinja2 templating language</a> for creating templates and render them at the host replacing the placeholders with either implicit or explicit vars.</p>
+<p>In this section, you&#8217;ll learn the following:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Create Ansible templates</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Set variables values</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Encrypt/Decrypt sensitive data</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ansible supports <a href="http://jinja.pocoo.org/docs/">Jinja2 templating language</a> for creating templates and rendering them at the host, replacing the placeholders with either implicit or explicit vars.</p>
 </div>
 </div>
 </div>
@@ -138,7 +170,7 @@
 <h2 id="createtemplates"><a class="anchor" href="#createtemplates"></a>Creation of Templates</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s create two template files, one for configuring the application, and another one for setting the date the script was run.</p>
+<p>Let&#8217;s create two template files, one for configuring the application and another for setting the date the script was run.</p>
 </div>
 <div class="paragraph">
 <p>Create a new directory named <code>templates</code> to store both files:</p>
@@ -172,7 +204,7 @@ Name the file <code>release.j2</code>:</p>
 </div>
 <div class="paragraph">
 <p>The second one is a properties configuration file setting some properties like the <strong>hostname</strong>, <strong>buffer_size</strong> depending on the amount of the available memory, and a <strong>username</strong> and <strong>password</strong>.
-Some of these properties are set from Anisble variables, and others set manually.
+Some of these properties are set from Ansible variables, and others are set manually.
 Name the file <code>conf.properties.j2</code>:</p>
 </div>
 <div class="listingblock console-input">
@@ -253,7 +285,7 @@ password={{ password }}</code></pre>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Loop section setting the list of template files</td>
+<td>Loop section establishing the list of template files</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -270,7 +302,7 @@ password={{ password }}</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>Then you can run Ansible as usually from the command line:</p>
+<p>Then you can run Ansible as usual from the command line:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -314,10 +346,10 @@ staging                    : ok=4    changed=2    unreachable=0    failed=0    s
 <div class="sect2">
 <h3 id="_setting_variables_externally"><a class="anchor" href="#_setting_variables_externally"></a>Setting Variables externally</h3>
 <div class="paragraph">
-<p>In the previous example, we&#8217;ve set the variables in the Ansible file, but you can override them from command line using the <code>extra-vars</code> argument.</p>
+<p>In the previous example, we&#8217;ve set the variables in the Ansible file, but you can override them from the command line using the <code>extra-vars</code> argument.</p>
 </div>
 <div class="paragraph">
-<p>Create a new file named <code>staging.yaml</code> to set these variable in a <em>YAML</em> file:</p>
+<p>Create a new file named <code>staging.yaml</code> to set these variables in a <em>YAML</em> file:</p>
 </div>
 <div class="listingblock console-input">
 <div class="title">staging.yaml</div>
@@ -327,8 +359,8 @@ password: test</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Then let&#8217;s apply these parameters in the case case of staging servers.
-Run the following command to run tasks on staging environment with variables set in the <code>staging.yaml</code> file:</p>
+<p>Then let&#8217;s apply these parameters in the case of staging servers.
+Run the following command to run tasks on the staging environment with variables set in the <code>staging.yaml</code> file:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -368,19 +400,19 @@ staging                    : ok=4    changed=2    unreachable=0    failed=0    s
 <h2 id="ansiblevault"><a class="anchor" href="#ansiblevault"></a>Ansible Vault</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>At this point, we&#8217;re able to configure the application depending on the environment, staging with some values and production with others.</p>
+<p>At this point, we can configure the application depending on the environment, staging with some values, and production with others.</p>
 </div>
 <div class="paragraph">
-<p>But, there are some properties sensitive and should be protected, for example the username and password of the application (specially in production).</p>
+<p>But, some properties are sensitive and should be protected, for example, the username and password of the application (especially in production).</p>
 </div>
 <div class="sect2">
 <h3 id="_encrypting"><a class="anchor" href="#_encrypting"></a>Encrypting</h3>
 <div class="paragraph">
 <p>Ansible comes with Ansible Vault to manage this scenario.
-Let&#8217;s create a <em>YAML</em> configuration file but with content encrypted.</p>
+Let&#8217;s create a <em>YAML</em> configuration file but with encrypted content.</p>
 </div>
 <div class="paragraph">
-<p>In the terminal window run the following command:</p>
+<p>In the terminal window, run the following command:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -428,8 +460,8 @@ At this point, file is safe to publish in Git repository or shared with others.<
 <p>To decrypt this file while running Ansible, use the <code>--ask-vault-pass</code> option to set Ansible to ask for the password to decrypt the encrypted files.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s apply the encrypted properties file to production environment.
-Run the following command in the terminal to create the file to production environmemt:</p>
+<p>Let&#8217;s apply the encrypted properties file to the production environment.
+Run the following command in the terminal to create the file for the production environment:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -491,6 +523,7 @@ Any Ansible file like <code>inventory</code> can also be secured in the same way
 </div>
 <nav class="pagination">
   <span class="prev"><a href="02-getting-started.html">2. Getting Started</a></span>
+  <span class="next"><a href="04-roles.html">4. Roles</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

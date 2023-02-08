@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Roles :: Ansible Tutorial</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/04-roles.html">
+    <link rel="prev" href="03-advanced.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-scholars.github.io/ansible-tutorial">Ansible Tutorial</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ansible-tutorial" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="01-setup.html">1. Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#ansible">Setup Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#downloadtutorial">Get Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#preparingkeys">Preparing SSH keys</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#bootingservers">Booting Servers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-getting-started.html">2. Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#ide">Editor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#inventory">Defining an Inventory</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#runningansible">Running Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#escalation">Privilege Escalation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-getting-started.html#playbook">Playbooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-advanced.html">3. Templates</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-advanced.html#createtemplates">Create Templates</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-advanced.html#ansiblevault">Securing Files</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-roles.html">4. Roles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#firstrole">First Role</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#handlers">Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#sharingroles">Sharing Roles</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Ansible Tutorial</a></li>
+    <li><a href="04-roles.html">4. Roles</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/ansible-tutorial/edit/master/documentation/modules/ROOT/pages/04-roles.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Roles</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, you&#8217;ll learn the following:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Create a Role</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Different ways to invoke a Role</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Why Handlers are important</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Sharing Roles</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So far, we&#8217;ve seen how to write Ansible playbooks, as this is the entry point for Ansible, but when you have already written some playbooks, the task is repetitive as most of the playbooks look the same.</p>
+</div>
+<div class="paragraph">
+<p>Ansible Roles enable us to reuse and share Ansible code (tasks).
+Then you only call the Role/s from the playbook, and all the magic happens.</p>
+</div>
+<div class="paragraph">
+<p>For example, you could have a Role to install PostgreSQL and reuse it in all tasks of all projects when a PostgreSQL database is required.</p>
+</div>
+<div class="paragraph">
+<p>But Roles let you organize Ansible code as it provides a hierarchy of directories to follow (<code>tasks</code>, <code>handlers</code>, <code>templates</code>, <code>vars</code>, &#8230;&#8203;), and a way to invoke them cleanly, making playbook files easy to follow and maintain.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="firstrole"><a class="anchor" href="#firstrole"></a>First Role</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the project&#8217;s root directory, create a new directory called <code>roles</code>.
+This is the default directory where Ansible will look for available Roles at invocation time.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir roles
+cd roles</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Inside the <code>roles</code> directory, let&#8217;s use the <code>ansible-galaxy</code> command (already installed with Ansible) to scaffold the directory layout for a Role.
+Name the Role <code>printfile</code>.</p>
+</div>
+<div class="paragraph">
+<p>Run the following command in the terminal window:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy init printfile</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_skaffold_the_role"><a class="anchor" href="#_skaffold_the_role"></a>Skaffold the Role</h3>
+<div class="paragraph">
+<p>Let&#8217;s implement a Role to read a file from a remote host and print its content to the local console.</p>
+</div>
+<div class="paragraph">
+<p>Enter into the <code>printfile</code> directory:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd printfile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This directory has the following directory structure:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">defaults</dt>
+<dd>
+<p>Includes default values for variables of the role.</p>
+</dd>
+<dt class="hdlist1">files</dt>
+<dd>
+<p>Contains static and custom files.</p>
+</dd>
+<dt class="hdlist1">handlers</dt>
+<dd>
+<p>A set of handlers that are triggered by tasks of the role.</p>
+</dd>
+<dt class="hdlist1">meta</dt>
+<dd>
+<p>Metadata information for the role.</p>
+</dd>
+<dt class="hdlist1">tasks</dt>
+<dd>
+<p>A list of tasks to be executed by the role.</p>
+</dd>
+<dt class="hdlist1">templates</dt>
+<dd>
+<p>Template files used by tasks of the role.</p>
+</dd>
+<dt class="hdlist1">tests</dt>
+<dd>
+<p>Configuration files related to role testing.</p>
+</dd>
+<dt class="hdlist1">vars</dt>
+<dd>
+<p>Contains variables defined for the role.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p><code>tasks</code> directory is similar to the <code>task</code> section of a playbook, so let&#8217;s implement the task to print the content of a given file in that directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_implement_the_role"><a class="anchor" href="#_implement_the_role"></a>Implement the Role</h3>
+<div class="paragraph">
+<p>Open <code>tasks/main.yml</code> file and put the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">tasks/main.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: Display file contents
+  command: "cat {{show_file}} chdir={{show_directory}}" <i class="conum" data-value="1"></i><b>(1)</b>
+  register: command_output
+- name: Print to console
+  debug:
+    msg: "{{command_output.stdout}}" <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Gets the file content from <code>show_directory</code>/<code>show_file</code> variables</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Prints the file content to the local console</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s set some default values for these two variables.
+Open the <code>vars/main.yml</code> file and put the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">vars/main.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+show_file: hosts
+show_directory: /etc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, this Role shows the remote content of <code>/etc/hosts</code> to the console.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_playbook_invoking_a_role"><a class="anchor" href="#_create_a_playbook_invoking_a_role"></a>Create a Playbook invoking a Role</h3>
+<div class="paragraph">
+<p>Finally, we create a <code>playbook</code> file into root directory referencing the folder of the created role:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ../..</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="title">simple-role-playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- hosts: all
+  become: true
+  roles:
+    - role: printfile <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Folder name</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now, run the playbook and inspect the output:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook -i inventory simple-role-playbook.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [production]
+ok: [staging]
+
+TASK [printfile : Display file contents] ***************************************
+changed: [production]
+changed: [staging]
+
+TASK [printfile : Print to console] ********************************************
+ok: [staging] =&gt; {
+    "msg": "127.0.0.1\tlocalhost\n::1\tlocalhost ip6-localhost ip6-loopback\nfe00::0\tip6-localnet\nff00::0\tip6-mcastprefix\nff02::1\tip6-allnodes\nff02::2\tip6-allrouters\n192.168.0.3\t6d4b0c215195"
+}
+ok: [production] =&gt; {
+    "msg": "127.0.0.1\tlocalhost\n::1\tlocalhost ip6-localhost ip6-loopback\nfe00::0\tip6-localnet\nff00::0\tip6-mcastprefix\nff02::1\tip6-allnodes\nff02::2\tip6-allrouters\n192.168.0.2\tf602be09e2c3"
+}
+
+PLAY RECAP *********************************************************************
+production                 : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+staging                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_override_variables"><a class="anchor" href="#_override_variables"></a>Override Variables</h3>
+<div class="paragraph">
+<p>You can override any variable value from the playbook file by setting them under the <code>role</code> section:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">simple-role-playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- hosts: all
+  become: true
+  roles:
+    - role: printfile
+      show_file: host.conf <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Overrides <code>show_file</code> variable</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run again the playbook, and the output prints the <code>host.conf</code> content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook -i inventory simple-role-playbook.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [staging]
+ok: [production]
+
+TASK [printfile : Display file contents] ***************************************
+changed: [production]
+changed: [staging]
+
+TASK [printfile : Print to console] ********************************************
+ok: [staging] =&gt; {
+    "msg": "multi on"
+}
+ok: [production] =&gt; {
+    "msg": "multi on"
+}
+
+PLAY RECAP *********************************************************************
+production                 : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+staging                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_call_roles_from_tasks"><a class="anchor" href="#_call_roles_from_tasks"></a>Call Roles from Tasks</h3>
+<div class="paragraph">
+<p>Apart from defining Roles in the <code>roles</code> section, you can define them in the <code>tasks</code> section using the <code>include_role</code> section.
+The same playbook can be expressed as:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">simple-role-playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- hosts: all
+  become: true
+  tasks:
+    - name: Print Hosts
+      include_role:
+        name: printfile</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="handlers"><a class="anchor" href="#handlers"></a>Handlers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ansible offers handlers to run operations on change.
+For example, restarting a service when a task changes a configuration file.</p>
+</div>
+<div class="sect2">
+<h3 id="_creation_of_the_handler"><a class="anchor" href="#_creation_of_the_handler"></a>Creation of the Handler</h3>
+<div class="paragraph">
+<p>Let&#8217;s create a handler for debugging a variable.</p>
+</div>
+<div class="paragraph">
+<p>Open <code>roles/printfile/handlers/main.yml</code> file and copy the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">roles/printfile/handlers/main.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: Print to console <i class="conum" data-value="1"></i><b>(1)</b>
+  debug:
+    msg: "{{command_output.stdout}}"</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Name of the handler</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The syntax is similar like a <code>task</code> and is executed when it&#8217;s notified.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s modify the Role code to notify after the <code>cat</code> command is executed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fire_the_handler"><a class="anchor" href="#_fire_the_handler"></a>Fire the Handler</h3>
+<div class="paragraph">
+<p>Open <code>roles/printfile/tasks/main.yml</code> file and copy the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">roles/printfile/handlers/main.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- name: Display file contents
+  command: "cat {{show_file}} chdir={{show_directory}}"
+  register: command_output
+  notify: Print to console <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Fires the content defined in the handler named <code>Print to console</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_run_the_playbook"><a class="anchor" href="#_run_the_playbook"></a>Run the Playbook</h3>
+<div class="paragraph">
+<p>Run the playbook without any change, and the console prints the variable value but coming from a handler instead of a task:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook -i inventory simple-role-playbook.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [production]
+ok: [staging]
+
+TASK [Print Hosts] *************************************************************
+
+TASK [printfile : Display file contents] ***************************************
+changed: [staging]
+changed: [production]
+
+RUNNING HANDLER [printfile : Print to console] *********************************
+ok: [staging] =&gt; {
+    "msg": "127.0.0.1\tlocalhost\n::1\tlocalhost ip6-localhost ip6-loopback\nfe00::0\tip6-localnet\nff00::0\tip6-mcastprefix\nff02::1\tip6-allnodes\nff02::2\tip6-allrouters\n192.168.0.3\t6d4b0c215195"
+}
+ok: [production] =&gt; {
+    "msg": "127.0.0.1\tlocalhost\n::1\tlocalhost ip6-localhost ip6-loopback\nfe00::0\tip6-localnet\nff00::0\tip6-mcastprefix\nff02::1\tip6-allnodes\nff02::2\tip6-allrouters\n192.168.0.2\tf602be09e2c3"
+}
+
+PLAY RECAP *********************************************************************
+production                 : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+staging                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sharingroles"><a class="anchor" href="#sharingroles"></a>Share Roles</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>So far, we&#8217;ve seen Ansible Roles enable extracting everyday tasks in a structured way and reusing them in different Tasks (or Playbooks).
+But how to share Roles between different projects/teams?</p>
+</div>
+<div class="paragraph">
+<p>There are several ways to do this, like Ansible Galaxy or Ansible Tower, but the easiest way is using a well-known old friend named <strong>Git</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="_create_a_git_repository"><a class="anchor" href="#_create_a_git_repository"></a>Create a Git repository</h3>
+<div class="paragraph">
+<p>First, we need a public Git repository to push the <code>printfile</code> role.</p>
+</div>
+<div class="paragraph">
+<p>Go to your GitHub account (GitLab, &#8230;&#8203; are also acceptable) and create a new repository named <code>printfile</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/createrepo.png" alt="createrepo">
+</div>
+</div>
+<div class="paragraph">
+<p>Push the <strong>Create Repository</strong> button and validate it&#8217;s public repo and the full URL:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/createdrepo.png" alt="createdrepo">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_publish_the_ansible_role"><a class="anchor" href="#_publish_the_ansible_role"></a>Publish The Ansible Role</h3>
+<div class="paragraph">
+<p>To publish the Role, convert the <code>printfile</code> directory into a Git repository.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd roles/printfile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And initialize the repository:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git init .
+git add .
+git commit -m "First role"
+
+git branch -M main
+git remote add origin <a href="mailto:git@github.com">git@github.com</a>:lordofthejars/printfile.git <i class="conum" data-value="1"></i><b>(1)</b>
+
+git push -u origin main</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Change the repo to your location</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>At this point, the Ansible Role is published to a Git repo.
+Let&#8217;s create a new Playbook which reuses this Role.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_new_playbook"><a class="anchor" href="#_create_a_new_playbook"></a>Create a New Playbook</h3>
+<div class="paragraph">
+<p>Create a new directory to store the Ansible code:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p $TUTORIAL_HOME/app2
+cd $TUTORIAL_HOME/app2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create a new file named <code>inventory</code> with the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">inventory</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">[staging]
+staging ansible_user=root ansible_host=127.0.0.1 ansible_port=2223 ansible_ssh_private_key_file=~/.ssh/id_rsa_ansible
+
+[production]
+production ansible_user=root ansible_host=127.0.0.1 ansible_port=2224 ansible_ssh_private_key_file=~/.ssh/id_rsa_ansible</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then create the Playbook referencing the <code>printfile</code> Role:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">playbook.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- hosts: all
+  become: true
+  tasks:
+    - name: Print Hosts
+      include_role:
+        name: printfile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, Ansible looks for a Role named <code>printfile</code> but Role is not installed yet.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_the_role"><a class="anchor" href="#_install_the_role"></a>Install the Role</h3>
+<div class="paragraph">
+<p>To install the Role, create a new directory named <code>roles</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir roles
+cd roles</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Inside <code>roles</code> directory, create a <code>requirements.yml</code> file with the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">roles/requirements.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- src: <a href="https://github.com/lordofthejars/printfile.git" class="bare">https://github.com/lordofthejars/printfile.git</a> <i class="conum" data-value="1"></i><b>(1)</b>
+  version: main <i class="conum" data-value="2"></i><b>(2)</b>
+  name: printfile  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Change the repo to your location</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Branch</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Name of the Role</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Finally, run the following command from the root directory to download the role:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy install -r roles/requirements.yml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Starting galaxy role install process
+- extracting printfile to /Users/asotobu/.ansible/roles/printfile
+- printfile (main) was installed successfully</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Role is installed and can be executed from the Playbook.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_execute_the_playbook"><a class="anchor" href="#_execute_the_playbook"></a>Execute the Playbook</h3>
+<div class="paragraph">
+<p>Execute the Playbook as done in the other sections:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook -i inventory playbook.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+
+PLAY [all] *****************************************************************************
+
+TASK [Gathering Facts] *****************************************************************
+ok: [production]
+ok: [staging]
+
+TASK [Print Hosts] *********************************************************************
+
+TASK [printfile : Display file contents] ***********************************************
+changed: [production]
+changed: [staging]
+
+RUNNING HANDLER [printfile : Print to console] *****************************************
+ok: [staging] =&gt; {
+    "msg": "127.0.0.1\tlocalhost\n::1\tlocalhost ip6-localhost ip6-loopback\nfe00::0\tip6-localnet\nff00::0\tip6-mcastprefix\nff02::1\tip6-allnodes\nff02::2\tip6-allrouters\n192.168.0.3\t6d4b0c215195"
+}
+ok: [production] =&gt; {
+    "msg": "127.0.0.1\tlocalhost\n::1\tlocalhost ip6-localhost ip6-loopback\nfe00::0\tip6-localnet\nff00::0\tip6-mcastprefix\nff02::1\tip6-allnodes\nff02::2\tip6-allrouters\n192.168.0.2\tf602be09e2c3"
+}
+
+PLAY RECAP *****************************************************************************
+production                 : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+staging                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ansiblegalaxy"><a class="anchor" href="#ansiblegalaxy"></a>Ansible Galaxy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://galaxy.ansible.com/">Ansible Galaxy</a> provides community pre-packaged Ansible Roles and Collections to download and use in the Playbooks.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/galaxy.png" alt="galaxy">
+</div>
+</div>
+<div class="paragraph">
+<p>At the beginning of this tutorial, we installed the JDK using the <code>dnf</code> module.
+This is one way of doing it, but the community has provided a Role for installing JDK.
+Let&#8217;s install Java using an Ansible Role downloaded from Ansible Galaxy.</p>
+</div>
+<div class="sect2">
+<h3 id="_download_java_role"><a class="anchor" href="#_download_java_role"></a>Download Java Role</h3>
+<div class="paragraph">
+<p>The Java Role is located at <a href="https://galaxy.ansible.com/geerlingguy/java" class="bare">https://galaxy.ansible.com/geerlingguy/java</a> and has the id <code>geerlingguy.java</code>.</p>
+</div>
+<div class="paragraph">
+<p>Use the <code>ansible-galaxy</code> tool to download the Role and install it to the local Roles repository.</p>
+</div>
+<div class="paragraph">
+<p>In a terminal window, run the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy install geerlingguy.java</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">Starting galaxy role install process
+- downloading role 'java', owned by geerlingguy
+- downloading role from <a href="https://github.com/geerlingguy/ansible-role-java/archive/2.2.0.tar.gz" class="bare">https://github.com/geerlingguy/ansible-role-java/archive/2.2.0.tar.gz</a>
+- extracting geerlingguy.java to /Users/asotobu/.ansible/roles/geerlingguy.java
+- geerlingguy.java (2.2.0) was installed successfully</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_the_role"><a class="anchor" href="#_use_the_role"></a>Use the Role</h3>
+<div class="paragraph">
+<p>With Role installed, create a Playbook named <code>playbook-jdk.yml</code> with the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">playbook-jdk.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- hosts: all
+  become: true
+  roles:
+    - role: geerlingguy.java <i class="conum" data-value="1"></i><b>(1)</b>
+      when: "ansible_os_family == 'RedHat'" <i class="conum" data-value="2"></i><b>(2)</b>
+      java_packages: <i class="conum" data-value="3"></i><b>(3)</b>
+        - java-1.8.0-openjdk</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Role is already downloaded</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>when</code> keyword is used by Ansible to define when to run a Task/Role</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Custom properties</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_execute_playbook"><a class="anchor" href="#_execute_playbook"></a>Execute Playbook</h3>
+<div class="paragraph">
+<p>Execute the Playbook as done in the other sections:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook -i inventory playbook-jdk.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: staging
+[WARNING]: Found both group and host with same name: production
+
+PLAY [all] *****************************************************************************
+
+TASK [Gathering Facts] *****************************************************************
+ok: [staging]
+ok: [production]
+
+TASK [geerlingguy.java : Include OS-specific variables for Fedora or FreeBSD.] *********
+ok: [staging]
+ok: [production]
+
+TASK [geerlingguy.java : Include version-specific variables for CentOS/RHEL.] **********
+skipping: [staging]
+skipping: [production]
+
+TASK [geerlingguy.java : Include version-specific variables for Ubuntu.] ***************
+skipping: [staging]
+skipping: [production]
+
+TASK [geerlingguy.java : Include version-specific variables for Debian.] ***************
+skipping: [staging]
+skipping: [production]
+
+TASK [geerlingguy.java : Define java_packages.] ****************************************
+skipping: [staging]
+skipping: [production]
+
+TASK [geerlingguy.java : include_tasks] ************************************************
+included: /Users/asotobu/.ansible/roles/geerlingguy.java/tasks/setup-RedHat.yml for staging, production
+
+TASK [geerlingguy.java : Ensure Java is installed.] ************************************
+changed: [staging]
+changed: [production]
+
+TASK [geerlingguy.java : include_tasks] ************************************************
+skipping: [staging]
+skipping: [production]
+
+TASK [geerlingguy.java : include_tasks] ************************************************
+skipping: [staging]
+skipping: [production]
+
+TASK [geerlingguy.java : Set JAVA_HOME if configured.] *********************************
+skipping: [staging]
+skipping: [production]
+
+PLAY RECAP *****************************************************************************
+production                 : ok=4    changed=1    unreachable=0    failed=0    skipped=7    rescued=0    ignored=0
+staging                    : ok=4    changed=1    unreachable=0    failed=0    skipped=7    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="03-advanced.html">3. Templates</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
