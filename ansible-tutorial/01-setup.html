@@ -322,6 +322,9 @@ Your public key has been saved in /Users/asotobu/.ssh/id_rsa_ansible.pub</code><
 </div>
 </div>
 <div class="paragraph">
+<p>INFO: You can use a passphrase or not. But if you set one (in production you should!!!), remember it as you&#8217;ll need it later.</p>
+</div>
+<div class="paragraph">
 <p>Validate the creation of the keys.</p>
 </div>
 <div class="listingblock console-input">
@@ -344,7 +347,7 @@ Your public key has been saved in /Users/asotobu/.ssh/id_rsa_ansible.pub</code><
 One option could be to prepare some virtual machines and start them locally, but since these are heavy, we are providing a <code>docker-compose</code> file that starts two containers acting as "virtual machines".</p>
 </div>
 <div class="paragraph">
-<p>In a terminal window, go to the <code>apps</code> directory and run the <code>docker-compose</code> command:</p>
+<p>In the terminal window, go to the <code>apps</code> directory and run the <code>docker-compose</code> command:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -431,6 +434,18 @@ Number of key(s) added:        1
 Now try logging into the machine, with:   "ssh -p '2224' 'root@localhost'"
 and check to make sure that only the key(s) you wanted were added.</code></pre>
 </div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+In this deep dive, we&#8217;ll run some commands downloading an amount of data, so depending on the speed of internet, it might take a bit of time.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

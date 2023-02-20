@@ -185,7 +185,7 @@ Then you only call the Role/s from the playbook, and all the magic happens.</p>
 <h2 id="firstrole"><a class="anchor" href="#firstrole"></a>First Role</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the project&#8217;s root directory, create a new directory called <code>roles</code>.
+<p>In the project&#8217;s root directory (<code>app1</code>), create a new directory called <code>roles</code>.
 This is the default directory where Ansible will look for available Roles at invocation time.</p>
 </div>
 <div class="listingblock console-input">
@@ -207,7 +207,7 @@ Name the Role <code>printfile</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_skaffold_the_role"><a class="anchor" href="#_skaffold_the_role"></a>Skaffold the Role</h3>
+<h3 id="_scaffold_the_role"><a class="anchor" href="#_scaffold_the_role"></a>Scaffold the Role</h3>
 <div class="paragraph">
 <p>Let&#8217;s implement a Role to read a file from a remote host and print its content to the local console.</p>
 </div>
@@ -309,12 +309,15 @@ show_directory: /etc</code></pre>
 <div class="sect2">
 <h3 id="_create_a_playbook_invoking_a_role"><a class="anchor" href="#_create_a_playbook_invoking_a_role"></a>Create a Playbook invoking a Role</h3>
 <div class="paragraph">
-<p>Finally, we create a <code>playbook</code> file into root directory referencing the folder of the created role:</p>
+<p>Finally, we create a <code>playbook</code> file into root directory (<code>apps1</code>) referencing the folder of the created role:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ../..</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>At this point you should be inside the <code>app1</code> folder.</p>
 </div>
 <div class="listingblock console-input">
 <div class="title">simple-role-playbook.yaml</div>
@@ -590,7 +593,8 @@ But how to share Roles between different projects/teams?</p>
 <div class="sect2">
 <h3 id="_publish_the_ansible_role"><a class="anchor" href="#_publish_the_ansible_role"></a>Publish The Ansible Role</h3>
 <div class="paragraph">
-<p>To publish the Role, convert the <code>printfile</code> directory into a Git repository.</p>
+<p>To publish the Role, convert the <code>printfile</code> directory into a Git repository.
+From <code>apps1</code> folder, run the following command:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -628,12 +632,13 @@ Let&#8217;s create a new Playbook which reuses this Role.</p>
 <div class="sect2">
 <h3 id="_create_a_new_playbook"><a class="anchor" href="#_create_a_new_playbook"></a>Create a New Playbook</h3>
 <div class="paragraph">
-<p>Create a new directory to store the Ansible code:</p>
+<p>Create a new directory to store a new Ansible code using the published role.
+Go to parent directory of <code>app1</code> directory, and create an <code>app2</code> directory:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p $TUTORIAL_HOME/app2
-cd $TUTORIAL_HOME/app2</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir app2
+cd app2</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -670,7 +675,7 @@ production ansible_user=root ansible_host=127.0.0.1 ansible_port=2224 ansible_ss
 <div class="sect2">
 <h3 id="_install_the_role"><a class="anchor" href="#_install_the_role"></a>Install the Role</h3>
 <div class="paragraph">
-<p>To install the Role, create a new directory named <code>roles</code>:</p>
+<p>To install the Role, create a new directory named <code>roles</code> inside <code>app2</code> directory:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">

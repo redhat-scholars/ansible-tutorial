@@ -180,12 +180,12 @@
 <p>With machines up and running and Ansible installed, we can start managing the infrastructure.</p>
 </div>
 <div class="paragraph">
-<p>Create a new directory to store the Ansible code:</p>
+<p>Go to the directory where you cloned the Ansible tutorial repository, and create a new directory to store the Ansible code:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p $TUTORIAL_HOME/app1
-cd $TUTORIAL_HOME/app1</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir app1
+cd app1</code></pre>
 </div>
 </div>
 </div>
@@ -194,7 +194,7 @@ cd $TUTORIAL_HOME/app1</code></pre>
 <h2 id="ide"><a class="anchor" href="#ide"></a>IDE</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can use any editor to create Ansible files, but we&#8217;d recommend you use Visual Studio Code with Ansible extension:</p>
+<p>You can use any editor to create Ansible files, but we&#8217;d recommend you use Visual Studio Code with the Ansible language support extension:</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="_images/ansibleide.png" alt="ansibleide"></span></p>
@@ -206,15 +206,16 @@ cd $TUTORIAL_HOME/app1</code></pre>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The first thing is creating an <code>inventory</code> file.
-Ansible automates tasks on managed nodes or "hosts" in your infrastructure using a list or group of lists of hosts. This is known as an inventory file.
+Ansible automates tasks on managed nodes or "hosts" in your infrastructure using a list or group of lists of hosts.
+This is known as an inventory file.
 Although this inventory file is now static, Ansible also supports getting hosts from dynamic resources like Cobbler or OpenStack.</p>
 </div>
 <div class="paragraph">
 <p>The inventory file can be created in <em>YAML</em> or <em>INI</em> format.
-In this example <em>INI</em> format is used as it&#8217;s easy to understand and error-prone to white spaces.</p>
+In this example <em>INI</em> format is used as it&#8217;s easy to understand and less error-prone to white spaces.</p>
 </div>
 <div class="paragraph">
-<p>So, let&#8217;s create the inventory file for managing both servers grouped in two categories (<code>staging</code> and <code>production</code>):</p>
+<p>So, let&#8217;s create the inventory file for managing two servers grouped in two categories (<code>staging</code> and <code>production</code>):</p>
 </div>
 <div class="paragraph">
 <p>Create a new file named <code>inventory</code> with the following content:</p>
