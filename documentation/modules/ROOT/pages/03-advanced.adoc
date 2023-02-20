@@ -6,7 +6,7 @@ In this section, you'll learn the following:
 * [x] Set variables values
 * [x] Encrypt/Decrypt sensitive data
 
-Ansible supports http://jinja.pocoo.org/docs/[Jinja2 templating language] for creating templates and rendering them at the host, replacing the placeholders with either implicit or explicit vars.
+Ansible supports http://jinja.pocoo.org/docs/[Jinja2 templating language, window="_blank"] for creating templates and rendering them at the host, replacing the placeholders with either implicit or explicit vars.
 
 [#createtemplates]
 == Creation of Templates

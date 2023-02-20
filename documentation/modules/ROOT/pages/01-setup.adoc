@@ -16,14 +16,14 @@ Please have them installed and configured before you get started with any of the
 |**Tool**|**macOS**|**Linux**|**windows**
 
 | `Git`
-| https://git-scm.com/download/mac[Download]
-| https://git-scm.com/download/linux[Download]
-| https://git-scm.com/download/win[Download]
+| https://git-scm.com/download/mac[Download, window="_blank"]
+| https://git-scm.com/download/linux[Download, window="_blank"]
+| https://git-scm.com/download/win[Download, window="_blank"]
 
 | `Docker`
-| https://docs.docker.com/docker-for-mac/install[Docker for Mac]
+| https://docs.docker.com/docker-for-mac/install[Docker for Mac, window="_blank"]
 | `dnf/apt-get/... install docker`
-| https://docs.docker.com/docker-for-windows/install[Docker for Windows]
+| https://docs.docker.com/docker-for-windows/install[Docker for Windows, window="_blank"]
 
 | `Python`
 | https://www.python.org/ftp/python/3.11.1/python-3.11.1-macos11.pkg
@@ -86,7 +86,7 @@ include::https://raw.githubusercontent.com/redhat-developer-demos/rhd-tutorial-c
 Ansible uses SSH to run commands against managed machines.
 To login to these machines, you can use login/password, but the most common way is using public/private keys to login.
 
-WARNING: In case of using Microsoft Windows, you might need to install https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui[OpenSSH client for Windows].
+WARNING: In case of using Microsoft Windows, you might need to install https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui[OpenSSH client for Windows, window="_blank"].
 
 Let's create a pair of keys.
 Run the following command in a terminal window:

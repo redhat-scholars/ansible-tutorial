@@ -484,7 +484,7 @@ staging                    : ok=3    changed=1    unreachable=0    failed=0    s
 [#ansiblegalaxy]
 == Ansible Galaxy
 
-https://galaxy.ansible.com/[Ansible Galaxy] provides community pre-packaged Ansible Roles and Collections to download and use in the Playbooks.
+https://galaxy.ansible.com/[Ansible Galaxy, window="_blank"] provides community pre-packaged Ansible Roles and Collections to download and use in the Playbooks.
 
 image::galaxy.png[]
 

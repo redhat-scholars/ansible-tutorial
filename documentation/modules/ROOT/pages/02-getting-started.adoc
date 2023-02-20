@@ -416,7 +416,7 @@ staging                    : ok=3    changed=2    unreachable=0    failed=0    s
 
 The following phase is copying the application to the `/var/hello` directory and configuring Supervisord to control the application process.
 
-Before modifying the Playbook content, download https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello-world-1.0.0-SNAPSHOT-runner.jar[Application] and https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello.conf[Supervisord Configuration] and copy them in the same directory as playbook.
+Before modifying the Playbook content, download https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello-world-1.0.0-SNAPSHOT-runner.jar[Application, window="_blank"] and https://github.com/redhat-scholars/ansible-tutorial/raw/master/apps/hello-simple/hello.conf[Supervisord Configuration, window="_blank"] and copy them in the same directory as playbook.
 
 Append to the previous Playbook file, the following tasks:
 
