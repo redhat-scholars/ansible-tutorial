@@ -12,19 +12,19 @@ In this section, you'll learn the following:
 
 With machines up and running and Ansible installed, we can start managing the infrastructure.
 
-Create a new directory to store the Ansible code:
+Go to the directory where you cloned the Ansible tutorial repository, and create a new directory to store the Ansible code:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
 ----
-mkdir -p $TUTORIAL_HOME/app1
-cd $TUTORIAL_HOME/app1
+mkdir app1
+cd app1
 ----
 
 [#ide]
 == IDE
 
-You can use any editor to create Ansible files, but we'd recommend you use Visual Studio Code with Ansible extension:
+You can use any editor to create Ansible files, but we'd recommend you use Visual Studio Code with the Ansible language support extension:
 
 image:ansibleide.png[]
 
@@ -32,13 +32,14 @@ image:ansibleide.png[]
 == Inventory
 
 The first thing is creating an `inventory` file.
-Ansible automates tasks on managed nodes or "hosts" in your infrastructure using a list or group of lists of hosts. This is known as an inventory file.
+Ansible automates tasks on managed nodes or "hosts" in your infrastructure using a list or group of lists of hosts. 
+This is known as an inventory file.
 Although this inventory file is now static, Ansible also supports getting hosts from dynamic resources like Cobbler or OpenStack.
 
 The inventory file can be created in _YAML_ or _INI_ format.
-In this example _INI_ format is used as it's easy to understand and error-prone to white spaces.
+In this example _INI_ format is used as it's easy to understand and less error-prone to white spaces.
 
-So, let's create the inventory file for managing both servers grouped in two categories (`staging` and `production`):
+So, let's create the inventory file for managing two servers grouped in two categories (`staging` and `production`):
 
 Create a new file named `inventory` with the following content:
 

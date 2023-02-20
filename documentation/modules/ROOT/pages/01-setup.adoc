@@ -110,6 +110,8 @@ Your identification has been saved in /Users/asotobu/.ssh/id_rsa_ansible
 Your public key has been saved in /Users/asotobu/.ssh/id_rsa_ansible.pub
 ----
 
+INFO: You can use a passphrase or not. But if you set one (in production you should!!!), remember it as you'll need it later.
+
 Validate the creation of the keys.
 
 [.console-input]
@@ -130,7 +132,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDISVzwTEBoVEygssPwpI/SmZkBvSgWcwkPfCWBTFpX
 Ansible manages servers, and we need some servers to work.
 One option could be to prepare some virtual machines and start them locally, but since these are heavy, we are providing a `docker-compose` file that starts two containers acting as "virtual machines".
 
-In a terminal window, go to the `apps` directory and run the `docker-compose` command:
+In the terminal window, go to the `apps` directory and run the `docker-compose` command:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -216,3 +218,5 @@ Number of key(s) added:        1
 Now try logging into the machine, with:   "ssh -p '2224' 'root@localhost'"
 and check to make sure that only the key(s) you wanted were added.
 ----
+
+IMPORTANT: In this deep dive, we'll run some commands downloading an amount of data, so depending on the speed of internet, it might take a bit of time.

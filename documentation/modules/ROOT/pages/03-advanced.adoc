@@ -13,7 +13,7 @@ Ansible supports http://jinja.pocoo.org/docs/[Jinja2 templating language, window
 
 Let's create two template files, one for configuring the application and another for setting the date the script was run.
 
-Create a new directory named `templates` to store both files:
+Still in `app1` directory, create a new directory named `templates` to store both files:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -21,7 +21,7 @@ Create a new directory named `templates` to store both files:
 mkdir templates
 ----
 
-Then create two _Jinja2_ template files inside:
+Then create two _Jinja2_ template files inside the directory:
 
 The first one is the release template which sets the date when the file is rendered.
 Name the file `release.j2`:
@@ -61,7 +61,7 @@ password={{ password }}
 <2> Conditional structure in Jinja2
 <3> Custom properties
 
-Go back to the root directory to create the Ansible file:
+Go back to the root directory (`app1`) to create the Ansible file:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]

@@ -19,7 +19,7 @@ But Roles let you organize Ansible code as it provides a hierarchy of directorie
 [#firstrole]
 == First Role
 
-In the project's root directory, create a new directory called `roles`.
+In the project's root directory (`app1`), create a new directory called `roles`.
 This is the default directory where Ansible will look for available Roles at invocation time.
 
 [.console-input]
@@ -40,7 +40,7 @@ Run the following command in the terminal window:
 ansible-galaxy init printfile
 ----
 
-=== Skaffold the Role
+=== Scaffold the Role
 
 Let's implement a Role to read a file from a remote host and print its content to the local console.
 
@@ -99,13 +99,15 @@ By default, this Role shows the remote content of `/etc/hosts` to the console.
 
 === Create a Playbook invoking a Role
 
-Finally, we create a `playbook` file into root directory referencing the folder of the created role:
+Finally, we create a `playbook` file into root directory (`apps1`) referencing the folder of the created role:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
 ----
 cd ../..
 ----
+
+At this point you should be inside the `app1` folder.
 
 [.console-input]
 [source, yaml,subs="+macros,+attributes"]
@@ -331,6 +333,7 @@ image::createdrepo.png[]
 === Publish The Ansible Role
 
 To publish the Role, convert the `printfile` directory into a Git repository.
+From `apps1` folder, run the following command:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
@@ -359,13 +362,14 @@ Let's create a new Playbook which reuses this Role.
 
 === Create a New Playbook
 
-Create a new directory to store the Ansible code:
+Create a new directory to store a new Ansible code using the published role.
+Go to parent directory of `app1` directory, and create an `app2` directory:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
 ----
-mkdir -p $TUTORIAL_HOME/app2
-cd $TUTORIAL_HOME/app2
+mkdir app2
+cd app2
 ----
 
 Create a new file named `inventory` with the following content:
@@ -399,7 +403,7 @@ At this point, Ansible looks for a Role named `printfile` but Role is not instal
 
 === Install the Role
 
-To install the Role, create a new directory named `roles`:
+To install the Role, create a new directory named `roles` inside `app2` directory:
 
 [.console-input]
 [source, bash,subs="+macros,+attributes"]
