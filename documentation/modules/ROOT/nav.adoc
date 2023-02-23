@@ -21,3 +21,6 @@
 ** xref:04-roles.adoc#handlers[Handlers]
 ** xref:04-roles.adoc#sharingroles[Sharing Roles]
 ** xref:04-roles.adoc#ansiblegalaxy[Ansible Galaxy]
+
+* Appendix
+** xref:99-vagrant.adoc[Vagrant]

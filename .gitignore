@@ -9,6 +9,8 @@ gh-pages/
 dependency-reduced-pom.xml
 svm.jar
 
+.vagrant
+
 ### STS ###
 .apt_generated
 .classpath
