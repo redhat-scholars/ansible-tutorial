@@ -332,7 +332,7 @@ In case you plan to not use them anymore, run the `destroy` command.ç
 vagrant halt
 ----
 
-[.console-input]
+[.console-ouput]
 [source, bash,subs="+macros,+attributes"]
 ----
 ==> prod: Attempting graceful shutdown of VM...
