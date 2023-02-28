@@ -6,7 +6,7 @@
     <title>Roles :: Ansible Tutorial</title>
     <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/04-roles.html">
     <link rel="prev" href="03-advanced.html">
-    <link rel="next" href="99-vagrant.html">
+    <link rel="next" href="11-collections.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -53,7 +53,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="01-setup.html">1. Setup</a>
+    <span class="nav-text">1. Requirements</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="01-setup.html#prerequisite">Prerequisites</a>
@@ -74,52 +74,79 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="02-getting-started.html">2. Getting Started</a>
+    <span class="nav-text">2. Ansible Beginner</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-getting-started.html">Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="02-getting-started.html#ide">Editor</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="02-getting-started.html#inventory">Defining an Inventory</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="02-getting-started.html#runningansible">Running Ansible</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="02-getting-started.html#escalation">Privilege Escalation</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="02-getting-started.html#playbook">Playbooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-advanced.html">3. Templates</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-advanced.html#createtemplates">Create Templates</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-advanced.html#ansiblevault">Securing Files</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-roles.html">4. Roles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#firstrole">First Role</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#handlers">Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#sharingroles">Sharing Roles</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#ansiblegalaxy">Ansible Galaxy</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="03-advanced.html">3. Templates</a>
+    <span class="nav-text">3. Ansible Elementary</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-advanced.html#createtemplates">Create Templates</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="11-collections.html">Collections</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="11-collections.html#firstcollection">First Collection</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-advanced.html#ansiblevault">Securing Files</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="11-collections.html#sharingollections">Sharing Collections</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="11-collections.html#collectionsansiblegalaxy">Ansible Galaxy and Collections</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="04-roles.html">4. Roles</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#firstrole">First Role</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#handlers">Handlers</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#sharingroles">Sharing Roles</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#ansiblegalaxy">Ansible Galaxy</a>
   </li>
 </ul>
   </li>
@@ -147,6 +174,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Ansible Tutorial</a></li>
+    <li>2. Ansible Beginner</li>
     <li><a href="04-roles.html">4. Roles</a></li>
   </ul>
 </nav>
@@ -173,6 +201,9 @@
 </li>
 <li>
 <p><i class="fa fa-check-square-o"></i> Sharing Roles</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Downloading Roles from Ansible Galaxy</p>
 </li>
 </ul>
 </div>
@@ -928,7 +959,7 @@ staging                    : ok=4    changed=1    unreachable=0    failed=0    s
 </div>
 <nav class="pagination">
   <span class="prev"><a href="03-advanced.html">3. Templates</a></span>
-  <span class="next"><a href="99-vagrant.html">Vagrant</a></span>
+  <span class="next"><a href="11-collections.html">Collections</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

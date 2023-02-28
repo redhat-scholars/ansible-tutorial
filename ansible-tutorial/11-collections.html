@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Collections :: Ansible Tutorial</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/11-collections.html">
+    <link rel="prev" href="04-roles.html">
+    <link rel="next" href="99-vagrant.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-scholars.github.io/ansible-tutorial">Ansible Tutorial</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ansible-tutorial" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">1. Requirements</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#ansible">Setup Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#downloadtutorial">Get Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#preparingkeys">Preparing SSH keys</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#bootingservers">Booting Servers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">2. Ansible Beginner</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-getting-started.html">Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#ide">Editor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#inventory">Defining an Inventory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#runningansible">Running Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#escalation">Privilege Escalation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#playbook">Playbooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-advanced.html">3. Templates</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-advanced.html#createtemplates">Create Templates</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-advanced.html#ansiblevault">Securing Files</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-roles.html">4. Roles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-roles.html#firstrole">First Role</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-roles.html#handlers">Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-roles.html#sharingroles">Sharing Roles</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-roles.html#ansiblegalaxy">Ansible Galaxy</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3. Ansible Elementary</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="11-collections.html">Collections</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#firstcollection">First Collection</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#sharingollections">Sharing Collections</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#collectionsansiblegalaxy">Ansible Galaxy and Collections</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Appendix</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="99-vagrant.html">Vagrant</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Ansible Tutorial</a></li>
+    <li>3. Ansible Elementary</li>
+    <li><a href="11-collections.html">Collections</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/ansible-tutorial/edit/master/documentation/modules/ROOT/pages/11-collections.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Collections</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, you&#8217;ll learn the following:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Create a Collection</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Build and Install a Collection</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Sharing Collections</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Downloading Collections from Ansible Galaxy</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So far, we&#8217;ve seen Ansible Roles as a way to implement everyday Ansible tasks and reuse them across playbooks/projects.
+But in some cases, we might need something more, not just to share tasks between tasks but also modules, plugins, other roles, or even playbooks.</p>
+</div>
+<div class="paragraph">
+<p>Ansible Collections are a distribution format for Ansible content that can include playbooks, roles, modules, and plugins.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Ansible Collections have two default lookup paths:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User scoped path</dt>
+<dd>
+<p><code>/home/&lt;username&gt;/.ansible/collections</code></p>
+</dd>
+<dt class="hdlist1">System scoped path</dt>
+<dd>
+<p><code>/usr/share/ansible/collections</code></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="firstcollection"><a class="anchor" href="#firstcollection"></a>First Collection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In your working directory, create a new directory named <code>my-collection</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir my-collection
+cd my-collection</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then use Ansible Galaxy CLI to scaffold the collection layout.
+The collection is named <code>mynamespace.collection</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy collection init mynamespace.collection</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">- Collection mynamespace.collection was created successfully</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The structure of a plugin is the following one:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">.
+└── mynamespace <i class="conum" data-value="1"></i><b>(1)</b>
+    └── collection <i class="conum" data-value="2"></i><b>(2)</b>
+        ├── README.md
+        ├── docs <i class="conum" data-value="3"></i><b>(3)</b>
+        ├── galaxy.yml <i class="conum" data-value="4"></i><b>(4)</b>
+        ├── meta <i class="conum" data-value="5"></i><b>(5)</b>
+        │   └── runtime.yml
+        ├── plugins <i class="conum" data-value="6"></i><b>(6)</b>
+        │   └── README.md
+        └── roles <i class="conum" data-value="7"></i><b>(7)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Sets a namespace to the collection</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Collection name</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Collections documentation</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Contains all the metadata used in the Ansible Galaxy hub to index the collection</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Additional metadata</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Holds plugins, modules, and module_utils</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Hosts custom roles</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_create_an_ansible_module"><a class="anchor" href="#_create_an_ansible_module"></a>Create an Ansible Module</h3>
+<div class="paragraph">
+<p>Let&#8217;s create a custom Ansible module that returns a <strong>Hello World</strong> message with the <code>name</code> of the person provided as a parameter.</p>
+</div>
+<div class="paragraph">
+<p>Move into the <code>plugins</code> directory and create a new directory named <code>modules</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd mynamespace/collection/plugins/
+mkdir modules
+cd modules</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s implement the <em>hello</em> module with the <strong>Hello World</strong> logic.
+In this case, it&#8217;s a Python module, but any other language could be used.</p>
+</div>
+<div class="paragraph">
+<p>Create a new file, <code>demo_hello.py</code> in the <code>modules</code> directory with the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">mynamespace/collection/plugins/modules/demo_hello.py</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#!/usr/bin/python
+
+ANSIBLE_METADATA = {
+    'metadata_version': '1.0',
+    'status': ['preview'],
+    'supported_by': 'community'
+}
+
+DOCUMENTATION = '''
+---
+module: demo_hello
+short_description: A module that says hello
+version_added: "2.8"
+description:
+  - "A module that says hello."
+options:
+    name:
+        description:
+          - Name of the person to salute. If no value is provided the default
+            value will be used.
+        required: false
+        type: str
+        default: John Doe
+author:
+    - Gianni Salinetti (@giannisalinetti)
+'''
+
+EXAMPLES = '''
+# Pass in a custom name
+- name: Say hello to Linus Torvalds
+  demo_hello:
+    name: "Linus Torvalds"
+'''
+
+RETURN = '''
+fact:
+  description: Hello string
+  type: str
+  sample: Hello John Doe!
+'''
+
+import random
+from ansible.module_utils.basic import AnsibleModule
+
+
+FACTS = "Hello {name}!"
+
+
+def run_module():
+    module_args = dict(
+        name=dict(type='str', default='Ada'),
+    )
+
+    module = AnsibleModule(
+        argument_spec=module_args,
+        supports_check_mode=True
+    )
+
+    result = dict(
+        changed=False,
+        fact=''
+    )
+
+    result['fact'] = FACTS.format(
+        name=module.params['name']
+    )
+
+    if module.check_mode:
+        return result
+
+    module.exit_json(**result)
+
+
+def main():
+    run_module()
+
+
+if __name__ == '__main__':
+    main()</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_role"><a class="anchor" href="#_create_a_role"></a>Create a Role</h3>
+<div class="paragraph">
+<p>It&#8217;s a good practice to provide an Ansible Role when developing a module, so the user of the module is abstracted from the module, and Ansible Collections are about bundling content that belongs together.</p>
+</div>
+<div class="paragraph">
+<p>So let&#8217;s create a role inside the custom collection that utilizes the new module to get the message and print it in the console.
+We&#8217;ve already seen this in <a href="04-roles.html" class="xref page">Ansible Roles</a> section on how to develop Roles.</p>
+</div>
+<div class="paragraph">
+<p>Go to <code>my-collection/mynamespace/collection</code> directory and run the following command to scaffold a Role:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ../..
+
+ansible-galaxy init --init-path roles hello_msg</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">- Role hello_msg was created successfully</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, the Role is created in the <code>roles/hello_msg</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s create the task role running the module and printing the output.
+<code>Open roles/hello_msg/tasks/main.yml</code> file and copy the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">roles/hello_msg/tasks/main.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+# tasks file for hello_motd
+- name: Generate greeting and store result
+  demo_hello: <i class="conum" data-value="1"></i><b>(1)</b>
+    name: "{{ friend_name }}" <i class="conum" data-value="2"></i><b>(2)</b>
+  register: demo_greeting <i class="conum" data-value="3"></i><b>(3)</b>
+
+- name: dump output
+  debug: <i class="conum" data-value="4"></i><b>(4)</b>
+    msg: "{{ demo_greeting }}\n"</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Sets the name of the module (Python file)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Sets the <code>name</code> parameter</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Registers the output of the command</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Prints the outout to console</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Finally, set a default value for the <code>name</code> parameter in <code>roles/hello_msg/defaults/main.yml</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">roles/hello_msg/defaults/main.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+# defaults file for hello_motd
+friend_name: "Alexandra"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_and_install_the_collection"><a class="anchor" href="#_build_and_install_the_collection"></a>Build and Install the Collection</h3>
+<div class="paragraph">
+<p>From the <code>my-collection/mynamespace/collection</code> directory run the following command to build the collection and generate a <code>.tar.gz</code> file that can be installed locally or uploaded to Galaxy:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy collection build</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">Created collection for mynamespace.collection at /Users/asotobu/git/ansible-tutorial/apps/my-collection/mynamespace/collection/mynamespace-collection-1.0.0.tar.gz <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The output folder will depend on your layout</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Then install the collection into the Ansible collections folder (<code>~/.ansible/collections/ansible_collections</code>) to use it in the playbooks:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy collection install mynamespace-collection-1.0.0.tar.gz</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Installing 'mynamespace.collection:1.0.0' to '/Users/asotobu/.ansible/collections/ansible_collections/mynamespace/collection'
+mynamespace.collection:1.0.0 was installed successfully <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Version is taken from <code>galaxy.yml</code> file</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_test_the_collection"><a class="anchor" href="#_test_the_collection"></a>Test the Collection</h3>
+<div class="paragraph">
+<p>Now, it&#8217;s time to validate the Collection; to do that, we&#8217;ll create a new playbook that uses our new module and role.</p>
+</div>
+<div class="paragraph">
+<p>Return to the <code>my-collection</code> directory and create a new directory named <code>collections_test</code> to generate the test playbook.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir collections_test
+cd collections_test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To test the Collection, create a simple <code>playbook.yaml</code> file with the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">my-collection/collections_test/playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- hosts: localhost <i class="conum" data-value="1"></i><b>(1)</b>
+  connection: local
+  tasks:
+  - import_role: <i class="conum" data-value="2"></i><b>(2)</b>
+      name: mynamespace.collection.hello_msg
+    vars:
+      friend_name: "Alexandra" <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Sets <code>localhost</code> host so no inventory required</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Imports the <code>hello_msg</code> Role defined in the collection</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Override the variable value to <code>Alexandra</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The playbook runs the <strong>hello_msg</strong> Role, which invokes the module we&#8217;ve developed in Python.</p>
+</div>
+<div class="paragraph">
+<p>Go to the terminal and run the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-playbook playbook.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+PLAY [localhost] *****************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [mynamespace.collection.hello_msg : Generate greeting and store result] *****************************************************************************************************
+ok: [localhost]
+
+TASK [mynamespace.collection.hello_msg : dump output] ****************************************************************************************************************************
+ok: [localhost] =&gt; { <i class="conum" data-value="1"></i><b>(1)</b>
+    "msg": {
+        "changed": false,
+        "fact": "Hello Alexandra!",
+        "failed": false
+    }
+}
+
+PLAY RECAP ***********************************************************************************************************************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The output from the module</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sharingollections"><a class="anchor" href="#sharingollections"></a>Share Collections</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>So far, we&#8217;ve seen Ansible Collections enable the creation of modules, roles, and playbooks and package them in a single artifact.
+But how to share Collections between different projects/teams?</p>
+</div>
+<div class="paragraph">
+<p>There are several ways to do this, like Ansible Galaxy or Ansible Tower, but the easiest way is using a well-known old friend named <strong>Git</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The way is pretty similar as we&#8217;ve seen in <a href="04-roles.html#sharingroles" class="xref page">Sharing Roles</a>, but the commands are slightly different:</p>
+</div>
+<div class="paragraph">
+<p>To install a remote Collection from the Git repository using the <code>ansible-galaxy</code> tool:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy collection install git+https://github.com/ansible-collections/amazon.aws.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or you can also set them in a <code>requirements.yaml</code> file:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">requirements.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">collections:
+  - name: <a href="https://github.com/ansible-collections/amazon.aws.git" class="bare">https://github.com/ansible-collections/amazon.aws.git</a>
+    type: git
+    version: main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And you can install it by running the <code>ansible-galaxy install</code> command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy install -r requirements.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="collectionsansiblegalaxy"><a class="anchor" href="#collectionsansiblegalaxy"></a>Download Collections from Ansible Galaxy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://galaxy.ansible.com/">Ansible Galaxy</a> provides pre-packaged units of work known to Ansible as roles and collections.
+It&#8217;s like the NPM or Maven central but for Ansible.</p>
+</div>
+<div class="paragraph">
+<p>One of these packages available in Galaxy is the <a href="https://galaxy.ansible.com/ansible/posix">Ansible Posix</a> Collection.
+It is an Ansible Collection of modules and plugins that target POSIX UNIX/Linux and derivative Operating Systems.
+The collection contains several modules, for example, one for managing <code>firewalld</code>, another for <code>selinux</code>, <code>sysctl</code>, &#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>In this example, we&#8217;ll install Posix Collection and the <code>at</code> module to schedule a job using the <a href="https://www.redhat.com/sysadmin/linux-at-command">at</a> tool.</p>
+</div>
+<div class="paragraph">
+<p>Go to the root directory, and create a new directory named <code>atlinux-example</code>.
+This directory should be a sibling of <code>my-collection</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir atlinux-example
+cd atlinux-example</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_the_collection_from_galaxy"><a class="anchor" href="#_install_the_collection_from_galaxy"></a>Install the Collection from Galaxy</h3>
+<div class="paragraph">
+<p>Let&#8217;s install the Collection from the Galaxy server to our local machine.
+<code>ansible-galaxy</code> downloads automatically (if no URL is defined) a collection from Ansible Galaxy.
+Run the following command from the terminal:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy collection install -f ansible.posix</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading <a href="https://galaxy.ansible.com/download/ansible-posix-1.5.1.tar.gz" class="bare">https://galaxy.ansible.com/download/ansible-posix-1.5.1.tar.gz</a> to /Users/asotobu/.ansible/tmp/ansible-local-213760u56e6h9/tmp7w0rcl7k/ansible-posix-1.5.1-tysuskbu
+Installing 'ansible.posix:1.5.1' to '/Users/asotobu/.ansible/collections/ansible_collections/ansible/posix'
+ansible.posix:1.5.1 was installed successfully</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_ansible_content"><a class="anchor" href="#_create_ansible_content"></a>Create Ansible Content</h3>
+<div class="paragraph">
+<p>To test this Galaxy Collection, create an inventory file and a playbook.</p>
+</div>
+<div class="paragraph">
+<p>First, create a new <code>inventory</code> file configuring the container&#8217;s location.
+It&#8217;s the same document we created at <a href="02-getting-started.html#inventory" class="xref page">Inventory</a>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">atlinux-example/inventory</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">[staging]
+staging ansible_user=root ansible_host=127.0.0.1 ansible_port=2223 ansible_ssh_private_key_file=~/.ssh/id_rsa_ansible
+
+[production]
+production ansible_user=root ansible_host=127.0.0.1 ansible_port=2224 ansible_ssh_private_key_file=~/.ssh/id_rsa_ansible</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then let&#8217;s create a <code>atlinux-playbook.yaml</code> enforcing SELinux in the production host:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">atlinux-example/atlinux-playbook.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">---
+- name: set at command
+  hosts: production <i class="conum" data-value="1"></i><b>(1)</b>
+  become: yes
+  tasks:
+    - name: Install at Package <i class="conum" data-value="2"></i><b>(2)</b>
+      dnf:
+        name: httpd &gt;= 2.4
+        state: present
+    - name: Schedule a command to execute in 1 minute making sure it is unique in the queue
+      ansible.posix.at: <i class="conum" data-value="3"></i><b>(3)</b>
+        command: ls -d / &gt; /tmp/ls.txt
+        count: 10
+        units: minutes
+        unique: yes</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Applies only to production hosts</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Installs <code>at</code> package</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Uses the fully qualified name <code>&lt;author&gt;.&lt;collection&gt;.&lt;module&gt;</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Finally, run the playbook to schedule a job:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">ansible-playbook -i inventory atlinux-playbook.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">[WARNING]: Found both group and host with same name: production
+[WARNING]: Found both group and host with same name: staging
+
+PLAY [set at command] ************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************************************************
+ok: [production]
+
+TASK [Install at Package] ********************************************************************************************************************************************************
+ok: [production]
+
+TASK [Schedule a command to execute in 1 minute making sure it is unique in the queue] *******************************************************************************************
+ok: [production]
+
+PLAY RECAP ***********************************************************************************************************************************************************************
+production                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Done. You&#8217;ve used Ansible to schedule a Job on a remote machine.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="04-roles.html">4. Roles</a></span>
+  <span class="next"><a href="99-vagrant.html">Vagrant</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
