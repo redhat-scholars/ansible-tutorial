@@ -6,6 +6,7 @@ In this section, you'll learn the following:
 * [x] Different ways to invoke a Role
 * [x] Why Handlers are important
 * [x] Sharing Roles
+* [x] Downloading Roles from Ansible Galaxy
 
 So far, we've seen how to write Ansible playbooks, as this is the entry point for Ansible, but when you have already written some playbooks, the task is repetitive as most of the playbooks look the same.
 

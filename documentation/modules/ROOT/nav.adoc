@@ -1,26 +1,31 @@
-* xref:01-setup.adoc[1. Setup]
+* 1. Requirements
 ** xref:01-setup.adoc#prerequisite[Prerequisites]
 ** xref:01-setup.adoc#ansible[Setup Ansible]
 ** xref:01-setup.adoc#downloadtutorial[Get Tutorial Sources]
 ** xref:01-setup.adoc#preparingkeys[Preparing SSH keys]
 ** xref:01-setup.adoc#bootingservers[Booting Servers]
 
-* xref:02-getting-started.adoc[2. Getting Started]
-** xref:02-getting-started.adoc#ide[Editor]
-** xref:02-getting-started.adoc#inventory[Defining an Inventory]
-** xref:02-getting-started.adoc#runningansible[Running Ansible]
-** xref:02-getting-started.adoc#escalation[Privilege Escalation]
-** xref:02-getting-started.adoc#playbook[Playbooks]
+* 2. Ansible Beginner
+** xref:02-getting-started.adoc[Getting Started]
+*** xref:02-getting-started.adoc#ide[Editor]
+*** xref:02-getting-started.adoc#inventory[Defining an Inventory]
+*** xref:02-getting-started.adoc#runningansible[Running Ansible]
+*** xref:02-getting-started.adoc#escalation[Privilege Escalation]
+*** xref:02-getting-started.adoc#playbook[Playbooks]
+** xref:03-advanced.adoc[3. Templates]
+*** xref:03-advanced.adoc#createtemplates[Create Templates]
+*** xref:03-advanced.adoc#ansiblevault[Securing Files]
+** xref:04-roles.adoc[4. Roles]
+*** xref:04-roles.adoc#firstrole[First Role]
+*** xref:04-roles.adoc#handlers[Handlers]
+*** xref:04-roles.adoc#sharingroles[Sharing Roles]
+*** xref:04-roles.adoc#ansiblegalaxy[Ansible Galaxy]
 
-* xref:03-advanced.adoc[3. Templates]
-** xref:03-advanced.adoc#createtemplates[Create Templates]
-** xref:03-advanced.adoc#ansiblevault[Securing Files]
-
-* xref:04-roles.adoc[4. Roles]
-** xref:04-roles.adoc#firstrole[First Role]
-** xref:04-roles.adoc#handlers[Handlers]
-** xref:04-roles.adoc#sharingroles[Sharing Roles]
-** xref:04-roles.adoc#ansiblegalaxy[Ansible Galaxy]
+* 3. Ansible Elementary
+** xref:11-collections.adoc[Collections]
+*** xref:11-collections.adoc#firstcollection[First Collection]
+*** xref:11-collections.adoc#sharingollections[Sharing Collections]
+*** xref:11-collections.adoc#collectionsansiblegalaxy[Ansible Galaxy and Collections]
 
 * Appendix
 ** xref:99-vagrant.adoc[Vagrant]
