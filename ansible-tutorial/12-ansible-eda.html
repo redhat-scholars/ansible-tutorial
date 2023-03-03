@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ansible Rulebook :: Ansible Tutorial</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/12-ansible-eda.html">
+    <link rel="prev" href="11-collections.html">
+    <link rel="next" href="99-vagrant.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-scholars.github.io/ansible-tutorial">Ansible Tutorial</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ansible-tutorial" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">1. Requirements</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#ansible">Setup Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#downloadtutorial">Get Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#preparingkeys">Preparing SSH keys</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#bootingservers">Booting Servers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">2. Ansible Beginner</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-getting-started.html">1. Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#ide">Editor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#inventory">Defining an Inventory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#runningansible">Running Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#escalation">Privilege Escalation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-getting-started.html#playbook">Playbooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-advanced.html">2. Templates</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-advanced.html#createtemplates">Create Templates</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-advanced.html#ansiblevault">Securing Files</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-roles.html">3. Roles</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-roles.html#firstrole">First Role</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-roles.html#handlers">Handlers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-roles.html#sharingroles">Sharing Roles</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-roles.html#ansiblegalaxy">Ansible Galaxy</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3. Ansible Elementary</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="10-setup.html">1. Requirements</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="10-setup.html#previousrequirements">Previous Requirements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="10-setup.html#newprerequisite">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="10-setup.html#setupansiblerulebook">Setup Ansible Rulebook</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="11-collections.html">2. Collections</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="11-collections.html#firstcollection">First Collection</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="11-collections.html#sharingollections">Sharing Collections</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="11-collections.html#collectionsansiblegalaxy">Ansible Galaxy and Collections</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="12-ansible-eda.html">3. Ansible EDA</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#rulebookeda">Ansible Rulebook and EDA</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#firstrulebook">First Rulebook</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#executingplaybooksfromgit">Executing Playbooks stored at a Git repo</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Appendix</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="99-vagrant.html">Vagrant</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Ansible Tutorial</a></li>
+    <li>3. Ansible Elementary</li>
+    <li><a href="12-ansible-eda.html">3. Ansible EDA</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/ansible-tutorial/edit/master/documentation/modules/ROOT/pages/12-ansible-eda.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Ansible Rulebook</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, you&#8217;ll learn the following:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Understand Ansible Rulebook and <em>EDA</em> (Event-Driven Ansible)</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Run an Ansible task when an event is triggered</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Run Playbook stored in a Git repository</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rulebookeda"><a class="anchor" href="#rulebookeda"></a>Ansible Rulebook and EDA</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Event-Driven Ansible (<em>EDA</em>) is designed for simplicity and flexibility.
+With <em>EDA</em>, you subscribe to an event listening source (i.e., a WebHook, Kafka Event, watchdog, &#8230;&#8203;). When an event occurs in one of these sources, it triggers an event to the <em>EDA</em> server notifying the change, making Ansible react by running an action.
+This action could be running an Ansible action, or start the execution of a playbook, or run a module directly, or sending another event.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/eda.png" alt="eda">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="firstrulebook"><a class="anchor" href="#firstrulebook"></a>First Rulebook</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A rulebook is a YAML file configuring the Ansible server, what events to flag and how to respond to them.
+These rulebooks are similar to Ansible Playbooks, but one difference you&#8217;ll find is the <em>If-this-then-that</em> coding.</p>
+</div>
+<div class="paragraph">
+<p>A rulebook is composed of three significant elements:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Sources</dt>
+<dd>
+<p>Define which event source is listening and reacting. Some examples: are webhooks, Kafka, Azure service bus, file changes, or alertmanager.</p>
+</dd>
+<dt class="hdlist1">Rules</dt>
+<dd>
+<p>Define conditionals to match the event source.</p>
+</dd>
+<dt class="hdlist1">Actions</dt>
+<dd>
+<p>what needs to be executed when a condition is met.</p>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="_create_a_rulebook"><a class="anchor" href="#_create_a_rulebook"></a>Create a Rulebook</h3>
+<div class="paragraph">
+<p>Let&#8217;s start with a simple Rulebook that waits until Github triggers a webhook due to a push in a repository.
+When Ansible receives the event, it will print some information from the request (HTTP headers and some body parts of the JSON body content).</p>
+</div>
+<div class="paragraph">
+<p>In your working directory, create a new directory named <code>eda</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir eda
+cd eda</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then create a <code>rulebook-debug.yaml</code> file containing the Ansible EDA server definition (<em>source</em>), <em>rules</em> on when to show the content, and finally, the <em>action</em> of displaying the content on the terminal.</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">eda/rulebook-debug.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- name: Capture POSTs from GitHub
+  hosts: all
+  sources:
+    - ansible.eda.webhook: <i class="conum" data-value="1"></i><b>(1)</b>
+        host: 0.0.0.0
+        port: 5000
+      filters:
+        - ansible.eda.dashes_to_underscores: <i class="conum" data-value="2"></i><b>(2)</b>
+
+  rules:
+    - name: Print Important Data
+      condition: event.meta.headers.X_GitHub_Event == "push" <i class="conum" data-value="3"></i><b>(3)</b>
+      action:
+        echo: <i class="conum" data-value="4"></i><b>(4)</b>
+          message: "A change in {{ event.meta.headers.X_GitHub_Event }} in repo {{event.payload.repository.name}} URL {{event.payload.repository.clone_url}}." <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Source is a webhook. EDA server is listening at port 5000</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Body content is filtered changing dashes to underscores</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>HTTP Header request must contains <code>X-GitHub-Event</code> key with value <code>push</code> to execute the action</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The action is printing a message to terminal</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>EDA parses JSON content and you can access it through <code>event.&lt;fields&gt;</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Create an inventory file registering only the local machine; in this case, no remote machine is used, but of course, you could also register it.
+In the example, we use the YAML format instead of the INI format used <a href="02-getting-started.html#inventory" class="xref page">previously</a>.</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">eda/inventory.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">all:
+  hosts:
+    localhost:
+      ansible_connection: local</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_webhook"><a class="anchor" href="#_webhook"></a>WebHook</h3>
+<div class="paragraph">
+<p>We must create a new GitHub repository and configure the WebHooks to access the EDA server.
+To simplify things and avoid connection problems (like accessing <code>localhost</code> from the public network), we&#8217;ll simulate the event&#8217;s trigger.</p>
+</div>
+<div class="paragraph">
+<p>Create a JSON file containing the GitHub body content, it&#8217;s sent as a webhook in case of a push into a repository.
+Copy the following content to <code>webhook_git_push_payload_example.json</code> file:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">eda/webhook_git_push_payload_example.json</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "ref": "refs/heads/main",
+  "before": "0000000000000000000000000000000000000000",
+  "after": "a6cea883824d2ef2d65b822b6c8f3d0d222dcbb9",
+  "repository": {
+    "id": 602147939,
+    "node_id": "R_kgDOI-QMYw",
+    "name": "ansible-eda-deepdive",
+    "full_name": "redhat-developer-demos/ansible-eda-deepdive",
+    "private": false,
+    "owner": {
+      "name": "redhat-developer-demos",
+      "email": "<a href="mailto:developer@redhat.com">developer@redhat.com</a>",
+      "login": "redhat-developer-demos",
+      "id": 19392553,
+      "node_id": "MDEyOk9yZ2FuaXphdGlvbjE5MzkyNTUz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19392553?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/redhat-developer-demos",
+      "html_url": "https://github.com/redhat-developer-demos",
+      "followers_url": "https://api.github.com/users/redhat-developer-demos/followers",
+      "following_url": "https://api.github.com/users/redhat-developer-demos/following{/other_user}",
+      "gists_url": "https://api.github.com/users/redhat-developer-demos/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/redhat-developer-demos/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/redhat-developer-demos/subscriptions",
+      "organizations_url": "https://api.github.com/users/redhat-developer-demos/orgs",
+      "repos_url": "https://api.github.com/users/redhat-developer-demos/repos",
+      "events_url": "https://api.github.com/users/redhat-developer-demos/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/redhat-developer-demos/received_events",
+      "type": "Organization",
+      "site_admin": false
+    },
+    "html_url": "https://github.com/redhat-developer-demos/ansible-eda-deepdive",
+    "description": null,
+    "fork": false,
+    "url": "https://github.com/redhat-developer-demos/ansible-eda-deepdive",
+    "forks_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/forks",
+    "keys_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/teams",
+    "hooks_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/hooks",
+    "issue_events_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/events",
+    "assignees_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/tags",
+    "blobs_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/languages",
+    "stargazers_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/stargazers",
+    "contributors_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/contributors",
+    "subscribers_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/subscribers",
+    "subscription_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/subscription",
+    "commits_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/merges",
+    "archive_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/downloads",
+    "issues_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/labels{/name}",
+    "releases_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/redhat-developer-demos/ansible-eda-deepdive/deployments",
+    "created_at": 1676475785,
+    "updated_at": "2023-02-16T01:17:31Z",
+    "pushed_at": 1676626868,
+    "git_url": "git://github.com/redhat-developer-demos/ansible-eda-deepdive.git",
+    "ssh_url": "<a href="mailto:git@github.com">git@github.com</a>:redhat-developer-demos/ansible-eda-deepdive.git",
+    "clone_url": "https://github.com/redhat-developer-demos/ansible-eda-deepdive.git",
+    "svn_url": "https://github.com/redhat-developer-demos/ansible-eda-deepdive",
+    "homepage": null,
+    "size": 0,
+    "stargazers_count": 1,
+    "watchers_count": 1,
+    "language": null,
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "has_pages": false,
+    "has_discussions": false,
+    "forks_count": 0,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 0,
+    "license": null,
+    "allow_forking": true,
+    "is_template": false,
+    "web_commit_signoff_required": false,
+    "topics": [
+
+    ],
+    "visibility": "public",
+    "forks": 0,
+    "open_issues": 0,
+    "watchers": 1,
+    "default_branch": "main",
+    "stargazers": 1,
+    "master_branch": "main",
+    "organization": "redhat-developer-demos"
+  },
+  "pusher": {
+    "name": "lordofthejars",
+    "email": "<a href="mailto:asotobu@gmail.com">asotobu@gmail.com</a>"
+  },
+  "organization": {
+    "login": "redhat-developer-demos",
+    "id": 19392553,
+    "node_id": "MDEyOk9yZ2FuaXphdGlvbjE5MzkyNTUz",
+    "url": "https://api.github.com/orgs/redhat-developer-demos",
+    "repos_url": "https://api.github.com/orgs/redhat-developer-demos/repos",
+    "events_url": "https://api.github.com/orgs/redhat-developer-demos/events",
+    "hooks_url": "https://api.github.com/orgs/redhat-developer-demos/hooks",
+    "issues_url": "https://api.github.com/orgs/redhat-developer-demos/issues",
+    "members_url": "https://api.github.com/orgs/redhat-developer-demos/members{/member}",
+    "public_members_url": "https://api.github.com/orgs/redhat-developer-demos/public_members{/member}",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19392553?v=4",
+    "description": "Red Hat Developers Kubernetes, Istio, Knative, Microservices, Containers, Java"
+  },
+  "sender": {
+    "login": "lordofthejars",
+    "id": 1517153,
+    "node_id": "MDQ6VXNlcjE1MTcxNTM=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/1517153?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/lordofthejars",
+    "html_url": "https://github.com/lordofthejars",
+    "followers_url": "https://api.github.com/users/lordofthejars/followers",
+    "following_url": "https://api.github.com/users/lordofthejars/following{/other_user}",
+    "gists_url": "https://api.github.com/users/lordofthejars/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/lordofthejars/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/lordofthejars/subscriptions",
+    "organizations_url": "https://api.github.com/users/lordofthejars/orgs",
+    "repos_url": "https://api.github.com/users/lordofthejars/repos",
+    "events_url": "https://api.github.com/users/lordofthejars/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/lordofthejars/received_events",
+    "type": "User",
+    "site_admin": false
+  },
+  "created": true,
+  "deleted": false,
+  "forced": false,
+  "base_ref": null,
+  "compare": "https://github.com/redhat-developer-demos/ansible-eda-deepdive/commit/a6cea883824d",
+  "commits": [
+    {
+      "id": "a6cea883824d2ef2d65b822b6c8f3d0d222dcbb9",
+      "tree_id": "3d3dff7b6877a3bd9b73878f01bc0cd5d0fd1889",
+      "distinct": true,
+      "message": "Hello World Deployment",
+      "timestamp": "2023-02-17T10:35:48+01:00",
+      "url": "https://github.com/redhat-developer-demos/ansible-eda-deepdive/commit/a6cea883824d2ef2d65b822b6c8f3d0d222dcbb9",
+      "author": {
+        "name": "Alex Soto",
+        "email": "<a href="mailto:asotobu@gmail.com">asotobu@gmail.com</a>",
+        "username": "lordofthejars"
+      },
+      "committer": {
+        "name": "Alex Soto",
+        "email": "<a href="mailto:asotobu@gmail.com">asotobu@gmail.com</a>",
+        "username": "lordofthejars"
+      },
+      "added": [
+        "deployment.yaml"
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+
+      ]
+    }
+  ],
+  "head_commit": {
+    "id": "a6cea883824d2ef2d65b822b6c8f3d0d222dcbb9",
+    "tree_id": "3d3dff7b6877a3bd9b73878f01bc0cd5d0fd1889",
+    "distinct": true,
+    "message": "Hello World Deployment",
+    "timestamp": "2023-02-17T10:35:48+01:00",
+    "url": "https://github.com/redhat-developer-demos/ansible-eda-deepdive/commit/a6cea883824d2ef2d65b822b6c8f3d0d222dcbb9",
+    "author": {
+      "name": "Alex Soto",
+      "email": "<a href="mailto:asotobu@gmail.com">asotobu@gmail.com</a>",
+      "username": "lordofthejars"
+    },
+    "committer": {
+      "name": "Alex Soto",
+      "email": "<a href="mailto:asotobu@gmail.com">asotobu@gmail.com</a>",
+      "username": "lordofthejars"
+    },
+    "added": [
+      "deployment.yaml"
+    ],
+    "removed": [
+
+    ],
+    "modified": [
+
+    ]
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, we can start Ansible EDA server and simulate the trigger of a GitHub push event.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_start_eda"><a class="anchor" href="#_start_eda"></a>Start EDA</h3>
+<div class="paragraph">
+<p>In the <code>eda</code> directory, run the following command to start Ansible EDA.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If not set before, remember to set the <code>JAVA_HOME</code> environment variable.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the following command in the terminal:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-rulebook -i inventory.yaml --rulebook rulebook-debug.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, Ansible EDA is started and waiting for incoming HTTP requests.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_trigger_the_event"><a class="anchor" href="#_trigger_the_event"></a>Trigger the event</h3>
+<div class="paragraph">
+<p>Let&#8217;s send an HTTP request simulating a push in a GitHub repository in a new terminal window.
+Remember that the content is the same as you would receive in the case of a GitHub webhook; we are just simulating it for simplicity.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -H 'X-GitHub-Event: push' -H 'X-GitHub-Event-Type: push' -H 'Content-Type: application/json' --data "@./webhook_git_push_payload_example.json" 127.0.0.1:5000/endpoint</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the hostname is the <code>localhost</code> at port <code>5000</code> and the path is <code>endpoint</code>.</p>
+</div>
+<div class="paragraph">
+<p>After the execution of the command, inspect the terminal where Ansible EDA is running, and you should see the echoed message:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">2023-03-02 12:49:49.594794 : A change in push in repo ansible-eda-deepdive URL <a href="https://github.com/redhat-developer-demos/ansible-eda-deepdive.git" class="bare">https://github.com/redhat-developer-demos/ansible-eda-deepdive.git</a></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With the Hello World example up and running, let&#8217;s move the example forward to do something more useful.
+Stop the instance doing a kbd:[Ctrl+C] on the terminal.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="executingplaybooksfromgit"><a class="anchor" href="#executingplaybooksfromgit"></a>Executing Playbooks stored at a Git repo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After running a simple example, let&#8217;s complicate things a bit more.
+We&#8217;ll implement a GitOps pipeline to react to a change in a playbook.</p>
+</div>
+<div class="paragraph">
+<p>For example, when updating an application version in production, we might need to modify a playbook to set the new version and then apply the playbook.</p>
+</div>
+<div class="paragraph">
+<p>One way of doing this is changing and applying the playbook manually, but doing it manually is a slow process, subject to error, and not reproducible.</p>
+</div>
+<div class="paragraph">
+<p>So a better way would be to store the playbook in the Git repository, and when a change is done, automatically apply the change and propagate it to the environments.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s implement this use case using Ansible EDA.</p>
+</div>
+<div class="sect2">
+<h3 id="_overview_of_the_process"><a class="anchor" href="#_overview_of_the_process"></a>Overview of the Process</h3>
+<div class="paragraph">
+<p>The idea of what to do is easy, but all the required steps to run it are complex and need several actions.
+Let&#8217;s summarize the process:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Extract the <em>event type</em>, <em>repository name</em>, <em>clone url</em>, and <em>git ref</em> of the commit from the request, and store them in Ansible <em>facts</em> (~variables).</p>
+</li>
+<li>
+<p>Print the extracted information.</p>
+</li>
+<li>
+<p>Run a playbook to clone the remote Git repository with the change to the Ansible EDA machine.</p>
+</li>
+<li>
+<p>Run the playbook defined in the Git repository</p>
+</li>
+<li>
+<p>Wipeout the workspace</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_remote_git_repository"><a class="anchor" href="#_the_remote_git_repository"></a>The Remote Git repository</h3>
+<div class="paragraph">
+<p>The repository is located at <a href="https://github.com/redhat-developer-demos/ansible-eda-deepdive.git" class="bare">https://github.com/redhat-developer-demos/ansible-eda-deepdive.git</a> and contains a simple <code>deployment.yaml</code> file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/gh.png" alt="gh">
+</div>
+</div>
+<div class="paragraph">
+<p>And the content of the <code>deployment.yaml</code> file is an Ansible playbook that prints a message to configured host.</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">deployment.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- hosts: all
+  tasks:
+  - name: Print Hello World
+    debug: msg="Hello World"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We don&#8217;t need to do anything at this section, it&#8217;s main purpose is showing you the layout of the repository.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Although this playbook is simple, everything valid in Ansible playbook is valid here.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_the_rulebook"><a class="anchor" href="#_create_the_rulebook"></a>Create the Rulebook</h3>
+<div class="paragraph">
+<p>Now, it&#8217;s time to write the rulebook with all the steps explained in <a href="#_overview_of_the_process">Overview of the Process</a>.
+Creates a new file named <code>ansible-gitops.yaml</code> in the <code>eda</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>Although this file is not big, it contains some critical pieces that are better to see individually.
+At the end of the section, we&#8217;ll see the whole file with all the pieces together.</p>
+</div>
+<div class="sect3">
+<h4 id="_extracting_fields"><a class="anchor" href="#_extracting_fields"></a>Extracting fields</h4>
+<div class="paragraph">
+<p>In the Ansible rulebook, there is an action named <code>set_fact</code> used to store facts of the events.
+In this case, we store the body information required to clone the repository locally:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">ansible-gitops.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- name: Capture POSTs from gitea
+  hosts: all
+  sources:
+    - ansible.eda.webhook: <i class="conum" data-value="1"></i><b>(1)</b>
+        host: 0.0.0.0
+        port: 5000
+      filters:
+        - ansible.eda.dashes_to_underscores:
+
+  rules: <i class="conum" data-value="2"></i><b>(2)</b>
+    - name: Create facts
+      condition: event.payload is defined <i class="conum" data-value="3"></i><b>(3)</b>
+      action:
+        set_fact: <i class="conum" data-value="4"></i><b>(4)</b>
+          fact: <i class="conum" data-value="5"></i><b>(5)</b>
+            event_type: "{{ event.meta.headers.X_GitHub_Event }}"
+            repository_name: "{{ event.payload.repository.name }}"
+            clone_url: "{{event.payload.repository.clone_url}}"
+            git_ref: "{{event.payload.ref}}"</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Defines Ansible server configuration</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>All rules are defined under this section</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Only executethe action if there is content in the request</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><code>set_fact</code> is the action to execute</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Extracts data under the <code>fact</code> namespace</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_print_the_extracted_information"><a class="anchor" href="#_print_the_extracted_information"></a>Print the extracted information</h4>
+<div class="paragraph">
+<p>We&#8217;ve seen this in the previous rulebook, so nothing new:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">ansible-gitops.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: Print Important Data
+      condition: fact.event_type == "push" <i class="conum" data-value="1"></i><b>(1)</b>
+      action:
+        echo: <i class="conum" data-value="2"></i><b>(2)</b>
+          message: "A change {{fact.event_type}} in {{fact.repository_name}} URL {{fact.clone_url}}."</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Uses <code>fact</code> namespace, and then the name of the fact</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>echo</code> action prints the message to the console</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_clone_the_remote_git_repository"><a class="anchor" href="#_clone_the_remote_git_repository"></a>Clone the remote Git repository</h4>
+<div class="paragraph">
+<p>To clone the repository, we&#8217;ll create a playbook that clones the remote repository into a temporal directory.
+Create a new playbook file named <code>onpush.yaml</code> in the <code>eda</code> directory with the following content:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">eda/onpush.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- name: OnPush -- update application repo
+  hosts: localhost
+  connection: local <i class="conum" data-value="1"></i><b>(1)</b>
+  gather_facts: true
+  tasks:
+
+  - name: OnPush -- Check if repo exists locally
+    ansible.builtin.stat: <i class="conum" data-value="2"></i><b>(2)</b>
+      path: "/tmp/{{ fact.repository_name  }}"
+    register: repo_stat <i class="conum" data-value="3"></i><b>(3)</b>
+
+  - name: OnPush -- Clone application repository to event ref
+    when: repo_stat.stat.exists == false <i class="conum" data-value="4"></i><b>(4)</b>
+    ansible.builtin.git: <i class="conum" data-value="5"></i><b>(5)</b>
+      repo: "{{ fact.clone_url }}"
+      dest: "/tmp/{{ fact.repository_name }}" <i class="conum" data-value="6"></i><b>(6)</b>
+      clone: true
+      update: true
+      version: "{{ fact.git_ref | split('/') | last }}"
+    register: repo_cloned <i class="conum" data-value="7"></i><b>(7)</b>
+
+  - set_fact: <i class="conum" data-value="8"></i><b>(8)</b>
+      cacheable: true
+      repository_name: "{{fact.repository_name}}"
+      repo_stat: "{{ repo_stat }}"
+      cloned: "{{ repo_cloned }}"</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Executes command in the localhost using the system Python</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Checks if directory exists</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Stores the result in the <code>repo_stat</code> var</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>If directory is not present</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Uses Git task to clone the project</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Clones the repository to <code>/tmp/&lt;name_of_repo&gt;</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Stores the result in the <code>repo_cloned</code> var</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Sets facts for the following execution</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Then at the rulebook, we need to run this playbook:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">ansible-gitops.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: Respond to push event
+      condition: fact.repository_name == "ansible-eda-deepdive" and fact.event_type == "push" <i class="conum" data-value="1"></i><b>(1)</b>
+      action:
+        run_playbook: <i class="conum" data-value="2"></i><b>(2)</b>
+          name: onpush.yaml
+          set_facts: true <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Only when the repo is the one expected</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Sets the action to <code>run_playbook</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Executes the <code>onpush.yaml</code> with facts</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_run_the_playbook_defined_in_git"><a class="anchor" href="#_run_the_playbook_defined_in_git"></a>Run the playbook defined in Git</h4>
+<div class="paragraph">
+<p>Then, we must repeat the same process as in the previous section but run the cloned playbook.</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">ansible-gitops.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: Run application deploy playbook
+      condition: fact.cloned.failed == false <i class="conum" data-value="1"></i><b>(1)</b>
+      action:
+        run_playbook:
+          name: /tmp/{{fact.repository_name}}/deployment.yaml <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>If the repo is cloned</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Runs the playbook defined in the repository</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_wipeout_the_workspace"><a class="anchor" href="#_wipeout_the_workspace"></a>Wipeout the workspace</h4>
+<div class="paragraph">
+<p>Finally, let&#8217;s clean the directory where the repository was cloned.
+Create a playbook <code>clean.yaml</code> to implement the delete task:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">eda/clean.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- name: Clean workspace
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  tasks:
+
+  - name: Clean Git directory
+    ansible.builtin.file:
+      path: /tmp/{{ fact.repository_name }}
+      state: absent <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Deletes the directory</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>And finally it runs the playbook.</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">ansible-gitops.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: Clean workspace
+      condition: fact.cloned.failed == false
+      action:
+        run_playbook:
+          name: clean.yaml
+          set_facts: true</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_full_ansible_gitops_yaml_file"><a class="anchor" href="#_full_ansible_gitops_yaml_file"></a>Full <code>ansible-gitops.yaml</code> file</h4>
+<div class="paragraph">
+<p>The full rulebook is shown in the following snippet:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">eda/ansible-gitops.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- name: Capture POSTs from gitea
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+      filters:
+        - ansible.eda.dashes_to_underscores:
+
+  rules:
+    - name: Create facts
+      condition: event.payload is defined
+      action:
+        set_fact:
+          fact:
+            event_type: "{{ event.meta.headers.X_GitHub_Event }}"
+            repository_name: "{{ event.payload.repository.name }}"
+            clone_url: "{{event.payload.repository.clone_url}}"
+            git_ref: "{{event.payload.ref}}"
+
+    - name: Print Important Data
+      condition: fact.event_type == "push"
+      action:
+        echo:
+          message: "A change {{fact.event_type}} in {{fact.repository_name}} URL {{fact.clone_url}}."
+    - name: Respond to push event
+      condition: fact.repository_name == "ansible-eda-deepdive" and fact.event_type == "push"
+      action:
+        run_playbook:
+          name: onpush.yaml
+          set_facts: true
+
+    - name: Run application deploy playbook
+      condition: fact.cloned.failed == false
+      action:
+        run_playbook:
+          name: /tmp/{{fact.repository_name}}/deployment.yaml
+
+    - name: Clean workspace
+      condition: fact.cloned.failed == false
+      action:
+        run_playbook:
+          name: clean.yaml
+          set_facts: true</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_start_eda_2"><a class="anchor" href="#_start_eda_2"></a>Start EDA</h3>
+<div class="paragraph">
+<p>In the <code>eda</code> directory, run the following command to start Ansible EDA.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Remember to set the <code>JAVA_HOME</code> environment variable if not set before.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the following command in the terminal:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-rulebook -i inventory.yaml --rulebook ansible-gitops.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, Ansible EDA is started and waiting for incoming HTTP requests.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_trigger_the_event_2"><a class="anchor" href="#_trigger_the_event_2"></a>Trigger the event</h3>
+<div class="paragraph">
+<p>Let&#8217;s send an HTTP request simulating a push in a GitHub repository in a new terminal window.
+Remember that the content is the same as you would receive in the case of a GitHub webhook; we are just simulating it for simplicity.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -H 'X-GitHub-Event: push' -H 'X-GitHub-Event-Type: push' -H 'Content-Type: application/json' --data "@./webhook_git_push_payload_example.json" 127.0.0.1:5000/endpoint</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the hostname is the <code>localhost</code> at port <code>5000</code> and the path is <code>endpoint</code>.</p>
+</div>
+<div class="paragraph">
+<p>After the execution of the command, inspect the terminal where Ansible EDA is running, and you should see the echoed message:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">PLAY [OnPush -- update application repo] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+[WARNING]: Platform darwin on host localhost is using the discovered Python
+interpreter at /usr/local/bin/python3.11, but future installation of another
+Python interpreter could change the meaning of that path. See
+<a href="https://docs.ansible.com/ansible-" class="bare">https://docs.ansible.com/ansible-</a>
+core/2.14/reference_appendices/interpreter_discovery.html for more information.
+ok: [localhost]
+
+TASK [OnPush -- Check if repo exists locally] **********************************
+ok: [localhost]
+
+TASK [OnPush -- Clone application repository to event ref] *********************
+changed: [localhost]
+
+TASK [set_fact] ****************************************************************
+ok: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Print Hello World] *******************************************************
+ok: [localhost] =&gt; {
+    "msg": "Hello World"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+PLAY [Clean workspace] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+[WARNING]: Platform darwin on host localhost is using the discovered Python
+interpreter at /usr/local/bin/python3.11, but future installation of another
+Python interpreter could change the meaning of that path. See
+<a href="https://docs.ansible.com/ansible-" class="bare">https://docs.ansible.com/ansible-</a>
+core/2.14/reference_appendices/interpreter_discovery.html for more information.
+ok: [localhost]
+
+TASK [Clean Git directory] *****************************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Stop the instance doing a kbd:[Ctrl+C] on the terminal.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="11-collections.html">2. Collections</a></span>
+  <span class="next"><a href="99-vagrant.html">Vagrant</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

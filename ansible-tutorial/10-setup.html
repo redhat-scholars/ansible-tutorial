@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Welcome to Ansible Tutorial :: Ansible Tutorial</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/index.html">
-    <link rel="next" href="01-setup.html#prerequisite">
+    <title>Setup :: Ansible Tutorial</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/ansible-tutorial/ansible-tutorial/10-setup.html">
+    <link rel="prev" href="04-roles.html">
+    <link rel="next" href="11-collections.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -132,18 +133,18 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">3. Ansible Elementary</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="10-setup.html">1. Requirements</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="10-setup.html#previousrequirements">Previous Requirements</a>
+    <a class="nav-link" href="#previousrequirements">Previous Requirements</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="10-setup.html#newprerequisite">Prerequisite</a>
+    <a class="nav-link" href="#newprerequisite">Prerequisite</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="10-setup.html#setupansiblerulebook">Setup Ansible Rulebook</a>
+    <a class="nav-link" href="#setupansiblerulebook">Setup Ansible Rulebook</a>
   </li>
 </ul>
   </li>
@@ -199,119 +200,133 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="index.html" class="home-link is-current"></a>
+  <a href="index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Ansible Tutorial</a></li>
-    <li><a href="index.html">Welcome to Ansible Tutorial</a></li>
+    <li>3. Ansible Elementary</li>
+    <li><a href="10-setup.html">1. Requirements</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/ansible-tutorial/edit/master/documentation/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/ansible-tutorial/edit/master/documentation/modules/ROOT/pages/10-setup.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Welcome to Ansible Tutorial</h1>
-<div class="sect1 text-center strong">
-<h2>Getting started in Ansible</h2>
+<h1 class="page">Setup</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this Ansible tutorial, you&#8217;ll learn the basics of Ansible to start working with it.</p>
+<p>In this section, you&#8217;ll learn:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Installing the tools required for running the second part of the deep dive</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="sect1 tiles browse">
-<h2>Browse modules</h2>
+<div class="sect1">
+<h2 id="previousrequirements"><a class="anchor" href="#previousrequirements"></a>Previous Requirements</h2>
 <div class="sectionbody">
-<div class="ulist tile">
-<div class="title"><a href="01-setup.html" class="xref page">Get Started</a></div>
-<ul>
-<li>
-<p><a href="01-setup.html#prerequisite" class="xref page">Prerequisites</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>For this second part, you need some extra requirements apart from exactly the same requirements as the <a href="01-setup.html" class="xref page">first part</a>.</p>
 </div>
-<div class="ulist tile">
-<div class="title"><a href="02-getting-started.html" class="xref page">First Steps</a></div>
-<ul>
-<li>
-<p><a href="02-getting-started.html#inventory" class="xref page">Inventory</a></p>
-</li>
-<li>
-<p><a href="02-getting-started.html#runningansible" class="xref page">Running Ansible</a></p>
-</li>
-<li>
-<p><a href="02-getting-started.html#playbook" class="xref page">Playbooks</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>If you&#8217;ve already run the first part of the deep dive, you&#8217;ve got everything done, remember to start again the containers using the <code>docker-compose</code> command as explained in <a href="01-setup.html#bootingservers" class="xref page">this section</a>.</p>
 </div>
-<div class="ulist tile">
-<div class="title"><a href="03-advanced.html" class="xref page">Templates</a></div>
-<ul>
-<li>
-<p><a href="03-advanced.html#createtemplates" class="xref page">Create Templates</a></p>
-</li>
-<li>
-<p><a href="03-advanced.html#ansiblevault" class="xref page">Securing Files</a></p>
-</li>
-</ul>
 </div>
-<div class="ulist title">
-<div class="title"><a href="04-roles.html" class="xref page">Roles</a></div>
-<ul>
-<li>
-<p><a href="04-roles.html#firstrole" class="xref page">First Role</a></p>
-</li>
-<li>
-<p><a href="04-roles.html#handlers" class="xref page">Handlers</a></p>
-</li>
-<li>
-<p><a href="04-roles.html#sharingroles" class="xref page">Sharing Roles</a></p>
-</li>
-<li>
-<p><a href="04-roles.html#ansiblegalaxy" class="xref page">Ansible Galaxy</a></p>
-</li>
-</ul>
 </div>
-<div class="ulist title">
-<div class="title"><a href="11-collections.html" class="xref page">Collections</a></div>
-<ul>
-<li>
-<p><a href="11-collections.html#firstcollection" class="xref page">First Collection</a></p>
-</li>
-<li>
-<p><a href="11-collections.html#sharingollections" class="xref page">Sharing Collections</a></p>
-</li>
-<li>
-<p><a href="11-collections.html#collectionsansiblegalaxy" class="xref page">Ansible Galaxy and Collections</a></p>
-</li>
-</ul>
+<div class="sect1">
+<h2 id="newprerequisite"><a class="anchor" href="#newprerequisite"></a>New Prerequisite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run this second part, the following CLI tools are required for running the exercises in this tutorial.
+Please have them installed and configured before you get started with any of the tutorial chapters.</p>
 </div>
-<div class="ulist title">
-<div class="title"><a href="12-ansible-eda.html" class="xref page">Ansible EDA</a></div>
-<ul>
-<li>
-<p><a href="12-ansible-eda.html#rulebookeda" class="xref page">Ansible Rulebook and EDA</a></p>
-</li>
-<li>
-<p><a href="12-ansible-eda.html#firstrulebook" class="xref page">First Rulebook</a></p>
-</li>
-<li>
-<p><a href="12-ansible-eda.html#executingplaybooksfromgit" class="xref page">Executing Playbooks stored at a Git repo</a></p>
-</li>
-</ul>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Tool</strong></th>
+<th class="tableblock halign-center valign-top"><strong>macOS</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Linux</strong></th>
+<th class="tableblock halign-center valign-top"><strong>windows</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>Java Development Kit &gt;=17</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://adoptium.net/en-GB/temurin/releases/" target="_blank" rel="noopener">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://adoptium.net/en-GB/temurin/releases/" target="_blank" rel="noopener">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://adoptium.net/en-GB/temurin/releases/" target="_blank" rel="noopener">Download</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>With Java installed, it&#8217;s important you set the <code>JAVA_HOME</code> environment variable to the location you installed the JVM.
+In my specific case <code>JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-19.jdk/Contents/Home</code>.</p>
 </div>
-<div class="ulist title">
-<div class="title">Appendix</div>
-<ul>
-<li>
-<p><a href="99-vagrant.html" class="xref page">Vagrant</a></p>
-</li>
-</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setupansiblerulebook"><a class="anchor" href="#setupansiblerulebook"></a>Setup Ansible Rulebook</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ll use <code>pip</code> to install Ansible Rulebook and its dependencies.
+First of all, install <code>ansible-rulebook</code>.
+In a terminal window run the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pip install ansible-rulebook ansible ansible-runner</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then install the Ansible Events collection with the Ansible Galaxy CLI:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-galaxy collection install ansible.eda</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, install the python module dependencies:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pip install aiohttp aiokafka watchdog azure-servicebus asyncio</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Validate the correctness of the installation, running the following command :</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-rulebook --version</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-terminal hljs" data-lang="terminal">__version__ = '0.10.1'
+  Executable location = /usr/local/bin/ansible-rulebook
+  Drools_jpy version = 0.1.7
+  Java home = /Library/Java/JavaVirtualMachines/temurin-19.jdk/Contents/Home
+  Java version = openjdk 19.0.1 2022-10-18
+  Python version = 3.10.9 (main, Dec 15 2022, 18:18:30) [Clang 14.0.0 (clang-1400.0.29.202)]</code></pre>
+</div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="01-setup.html#prerequisite">Prerequisites</a></span>
+  <span class="prev"><a href="04-roles.html">3. Roles</a></span>
+  <span class="next"><a href="11-collections.html">2. Collections</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
