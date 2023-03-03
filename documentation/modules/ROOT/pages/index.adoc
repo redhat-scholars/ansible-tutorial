@@ -33,5 +33,17 @@ In this Ansible tutorial, you'll learn the basics of Ansible to start working wi
 * xref:04-roles.adoc#ansiblegalaxy[Ansible Galaxy]
 
 [.title]
+.xref:11-collections.adoc[Collections]
+* xref:11-collections.adoc#firstcollection[First Collection]
+* xref:11-collections.adoc#sharingollections[Sharing Collections]
+* xref:11-collections.adoc#collectionsansiblegalaxy[Ansible Galaxy and Collections]
+
+[.title]
+.xref:12-ansible-eda.adoc[Ansible EDA]
+* xref:12-ansible-eda.adoc#rulebookeda[Ansible Rulebook and EDA]
+* xref:12-ansible-eda.adoc#firstrulebook[First Rulebook]
+* xref:12-ansible-eda.adoc#executingplaybooksfromgit[Executing Playbooks stored at a Git repo]
+
+[.title]
 .Appendix
 * xref:99-vagrant.adoc[Vagrant]
