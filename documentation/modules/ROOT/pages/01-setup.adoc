@@ -31,10 +31,12 @@ Please have them installed and configured before you get started with any of the
 | https://www.python.org/downloads/windows/
 
 | `Pip`
-| `python -m ensurepip --upgrade`
-| `python -m ensurepip --upgrade`
+| `python3 -m ensurepip --upgrade`
+| `python3 -m ensurepip --upgrade`
 | `py -m ensurepip --upgrade`
 |===
+
+
 
 WARNING: In case of not having `ensurepip` module installed, you can always download `get-pip.py` file and execute it. You can find more information in https://pip.pypa.io/en/stable/installation/.
 
@@ -49,6 +51,8 @@ In a terminal window, run the following command:
 ----
 sudo pip install ansible --upgrade
 ----
+
+IMPORTANT: You must use `pip3` instead of `pip` depending on the environment and version.
 
 And check that ansible is installed:
 

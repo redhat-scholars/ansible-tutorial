@@ -34,6 +34,10 @@
 *** xref:12-ansible-eda.adoc#rulebookeda[Ansible Rulebook and EDA]
 *** xref:12-ansible-eda.adoc#firstrulebook[First Rulebook]
 *** xref:12-ansible-eda.adoc#executingplaybooksfromgit[Executing Playbooks stored at a Git repo]
+** xref:13-kubernetes.adoc[4. Ansible and Kubernetes]
+*** xref:13-kubernetes.adoc#ansiblekubernetes[Ansible Kubernetes Collection]
+*** xref:13-kubernetes.adoc#deployapp[Deploy the application]
+*** xref:13-kubernetes.adoc#ansibletemplatek8s[Ansible Templates in Kubernetes]
 
 * Appendix
 ** xref:99-vagrant.adoc[Vagrant]

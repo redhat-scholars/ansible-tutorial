@@ -45,5 +45,11 @@ In this Ansible tutorial, you'll learn the basics of Ansible to start working wi
 * xref:12-ansible-eda.adoc#executingplaybooksfromgit[Executing Playbooks stored at a Git repo]
 
 [.title]
+* xref:13-kubernetes.adoc[Ansible and Kubernetes]
+* xref:13-kubernetes.adoc#ansiblekubernetes[Ansible Kubernetes Collection]
+* xref:13-kubernetes.adoc#deployapp[Deploy the application]
+* xref:13-kubernetes.adoc#ansibletemplatek8s[Ansible Templates in Kubernetes]
+
+[.title]
 .Appendix
 * xref:99-vagrant.adoc[Vagrant]
