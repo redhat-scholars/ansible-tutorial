@@ -178,6 +178,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="13-kubernetes.html">4. Ansible and Kubernetes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="13-kubernetes.html#ansiblekubernetes">Ansible Kubernetes Collection</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="13-kubernetes.html#deployapp">Deploy the application</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="13-kubernetes.html#ansibletemplatek8s">Ansible Templates in Kubernetes</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -270,8 +285,8 @@ Please have them installed and configured before you get started with any of the
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>Pip</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>python -m ensurepip --upgrade</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>python -m ensurepip --upgrade</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>python3 -m ensurepip --upgrade</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>python3 -m ensurepip --upgrade</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>py -m ensurepip --upgrade</code></p></td>
 </tr>
 </tbody>
@@ -301,6 +316,18 @@ In a terminal window, run the following command:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo pip install ansible --upgrade</code></pre>
 </div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+You must use <code>pip3</code> instead of <code>pip</code> depending on the environment and version.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>And check that ansible is installed:</p>
