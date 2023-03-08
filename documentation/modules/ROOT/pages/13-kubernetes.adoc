@@ -358,7 +358,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 Check the application is running in the Red Hat Sandbox Topology view:
 
-image::sandbox-file-deployment.yaml[]
+image::sandbox-file-deployment.png[]
 
 === Clean up
 
