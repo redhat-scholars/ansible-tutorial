@@ -79,8 +79,8 @@ Create a new Ansible file, defining the custom properties value, iterating throu
 - name: configuration template
   hosts: all
   vars: # <1>
-    - username: Alex
-    - password: Alex
+    username: Alex
+    password: Alex
   tasks:
     - name: Copy conf files
       loop: # <2>
