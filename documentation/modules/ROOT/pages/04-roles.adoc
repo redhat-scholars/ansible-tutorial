@@ -260,7 +260,7 @@ Open `roles/printfile/tasks/main.yml` file and copy the following content:
 
 [.console-input]
 [source, yaml,subs="+macros,+attributes"]
-.roles/printfile/handlers/main.yml
+.roles/printfile/tasks/main.yml
 ----
 ---
 - name: Display file contents
